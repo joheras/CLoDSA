@@ -42,27 +42,27 @@ In this mode, the input dataset of images is organized by folders, and the label
 
 #### PascalVOC-PascalVOC-Linear
 
-In this mode, the input dataset of images is given by an image and its annotation using the ![PascalVOC format](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/). The output produced is the dataset of augmented images together with its annotation using the PascalVOC format. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
+In this mode, the input dataset of images is given by an image and its annotation using the [PascalVOC format](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/). The output produced is the dataset of augmented images together with its annotation using the PascalVOC format. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
 
 
 #### PascalVOC-hdf5-Linear
 
-In this mode, the input dataset of images is given by an image and its annotation using the ![PascalVOC format](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/). The output produced is the dataset of augmented images stored in an hdf5 file. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
+In this mode, the input dataset of images is given by an image and its annotation using the [PascalVOC format](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/). The output produced is the dataset of augmented images stored in an hdf5 file. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
 
 #### PascalVOC-keras-Linear
 
-In this mode, the input dataset of images is given by an image and its annotation using the ![PascalVOC format](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/). The output produced is a batch of images that can be fed to Keras. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
+In this mode, the input dataset of images is given by an image and its annotation using the [PascalVOC format](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/). The output produced is a batch of images that can be fed to Keras. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
 
 
 ### Detection 
 
 #### PascalVOC-PascalVOC-Linear
 
-In this mode, the input dataset of images is given by an image and its annotation using the ![PascalVOC format](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/). The output produced is the dataset of augmented images together with its annotation using the PascalVOC format. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
+In this mode, the input dataset of images is given by an image and its annotation using the [PascalVOC format](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/). The output produced is the dataset of augmented images together with its annotation using the PascalVOC format. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
 
 #### PascalVOC-keras-Linear
 
-In this mode, the input dataset of images is given by an image and its annotation using the ![PascalVOC format](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/). The output produced is a batch of images that can be fed to Keras. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
+In this mode, the input dataset of images is given by an image and its annotation using the [PascalVOC format](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/). The output produced is a batch of images that can be fed to Keras. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
 
 
 ### Semantic Segmentation
