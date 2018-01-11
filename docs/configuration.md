@@ -1,6 +1,6 @@
 # Configuration
 
-In this section, we present the different options to configure the framework. In order to use this library, it is necessary to fix, in a configuration file, five parameters: the dataset of images, the kind of problem, the input, the ouput, the generation mode, and the techniques to be applied. Since generating a configuration file might be cumbersome for some users, we have created a ![Java program](java_program.md) to simplify this task. 
+In this section, we present the different options to configure the framework. In order to use this library, it is necessary to fix, in a configuration file, five parameters: the dataset of images, the kind of problem, the input, the ouput, the generation mode, and the techniques to be applied. Since generating a configuration file might be cumbersome for some users, we have created a ![Java program](../java_wizard) to simplify this task. 
 
 
 ## Dataset
