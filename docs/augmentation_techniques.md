@@ -1,6 +1,5 @@
-======================
-Overview of Augmentation techniques
-======================
+# Overview of Augmentation techniques
+
 
 We present the different techniques that can be applied to augment a dataset of images. In order to generate the samples presented in this section, it is necessary to load some libraries.
 
@@ -11,45 +10,45 @@ import numpy as np
 ```
 
 
-----------------------
-Average blurring
-----------------------
+
+## Average blurring
+
 
 Smoothes the image using an average filter. 
 
 .. figure:: images/average_blurring.jpg
     :alt: Average blurring
 
-----------------------
-Bilateral blurring
-----------------------
+
+## Bilateral blurring
+
 
 Applies bilateral blurring to the image. 
 
 .. figure:: images/bilateral_blurring.jpg
     :alt: Bilateral blurring
 
-----------------------
-Blurring
-----------------------
+
+## Blurring
+
 
 Blurs an image using the normalized box filter.
 
 .. figure:: images/blurring.jpg
     :alt: Blurring
 
-----------------------
-Change to HSV
-----------------------
+
+## Change to HSV
+
 
 Changes the color space from RGB to HSV. 
 
 .. figure:: images/change_to_hsv.jpg
     :alt: Change color space to HSV
 
-----------------------
-Change to LAB
-----------------------
+
+## Change to LAB
+
 
 Changes the color space from RGB to LAB. 
 
@@ -57,27 +56,27 @@ Changes the color space from RGB to LAB.
     :alt: Change color space to LAB
 
 
-----------------------
-Crop
-----------------------
+
+## Crop
+
 
 Crops pixels at the sides of the image.
 
 .. figure:: images/crop.jpg
     :alt: Crop the image
 
-----------------------
-Dropout
-----------------------
+
+## Dropout
+
 
 Sets some pixels in the image to zero.
 
 .. figure:: images/dropout.jpg
     :alt: Dropout
 
-----------------------
-Elastic deformation
-----------------------
+
+## Elastic deformation
+
 
 Applies elastic deformation as explained in the paper:  P. Simard, D. Steinkraus, and J. C. Platt. Best practices for convolutional neural networks applied to visual 
 document analysis. Proceedings of the 12th International Conference on Document Analysis and Recognition (ICDAR'03) vol. 2, pp. 958--964. IEEE Computer Society. 2003.
@@ -86,9 +85,9 @@ document analysis. Proceedings of the 12th International Conference on Document 
     :alt: Elastic
 
 
-----------------------
-Equalize histogram
-----------------------
+
+## Equalize histogram
+
 
 Applies histogram equalization to the image.
 
@@ -96,45 +95,45 @@ Applies histogram equalization to the image.
     :alt: Equalize histogram
 
 
-----------------------
-Flip
-----------------------
+
+## Flip
+
 
 Flips the image horizontally, vertically or both. 
 
 .. figure:: images/flip.jpg
     :alt: Flip
 
-----------------------
-Gamma correction
-----------------------
+
+## Gamma correction
+
 
 Applies gamma correction to the image.
 
 .. figure:: images/gamma.jpg
     :alt: Gamma correction
 
-----------------------
-Gaussian blurring
-----------------------
+
+## Gaussian blurring
+
 
 Blurs an image using a Gaussian filter.
 
 .. figure:: images/gaussian_blurring.jpg
     :alt: Gaussian blurring
 
-----------------------
-Gaussian noise
-----------------------
+
+## Gaussian noise
+
 
 Adds Gaussian noise to the image. 
 
 .. figure:: images/gaussian_noise.jpg
     :alt: Gaussian noise
 
-----------------------
-Invert
-----------------------
+
+## Invert
+
 
 Inverts all values in images, i.e. sets a pixel from value v to 255-v
 
@@ -142,27 +141,27 @@ Inverts all values in images, i.e. sets a pixel from value v to 255-v
     :alt: Invert
 
 
-----------------------
-Median blurring
-----------------------
+
+## Median blurring
+
 
 Blurs an image using the median filter.
 
 .. figure:: images/median_blurring.jpg
     :alt: Median blurring
 
-----------------------
-None
-----------------------
+
+## None
+
 
 This augmentation technique does not change the image. 
 
 .. figure:: images/none.jpg
     :alt: None
 
-----------------------
-Raise blue channel
-----------------------
+
+## Raise blue channel
+
 
 Raises the values in the blue channel.
 
@@ -170,45 +169,45 @@ Raises the values in the blue channel.
     :alt: Raise blue
 
 
-----------------------
-Raise green channel
-----------------------
+
+## Raise green channel
+
 
 Raises the values in the green channel.
 
 .. figure:: images/raise_green.jpg
     :alt: Raise green
 
-----------------------
-Raise hue
-----------------------
+
+## Raise hue
+
 
 Raises the hue value.
 
 .. figure:: images/raise_hue.jpg
     :alt: Raise hue
 
-----------------------
-Raise red channel
-----------------------
+
+## Raise red channel
+
 
 Raises the value in the red channel.
 
 .. figure:: images/raise_red.jpg
     :alt: Raise red
 
-----------------------
-Raise saturation
-----------------------
+
+## Raise saturation
+
 
 Raises the saturation.
 
 .. figure:: images/raise_saturation.jpg
     :alt: Raise saturation
 
-----------------------
-Raise value
-----------------------
+
+## Raise value
+
 
 Raise the value of pixels.
 
@@ -216,54 +215,54 @@ Raise the value of pixels.
     :alt: Raise value
 
 
-----------------------
-Resize
-----------------------
+
+## Resize
+
 
 Resizes the image.
 
 .. figure:: images/resize.jpg
     :alt: Resize
 
-----------------------
-Rotate
-----------------------
+
+## Rotate
+
 
 Rotates the image.
 
 .. figure:: images/rotate.jpg
     :alt: Rotate
 
-----------------------
-Salt and Pepper
-----------------------
+
+## Salt and Pepper
+
 
 Adds salt and pepper noise to the image.
 
 .. figure:: images/salt_and_pepper.jpg
     :alt: Salt and pepper
 
-----------------------
-Sharpen
-----------------------
+
+## Sharpen
+
 
 Sharpens the image. 
 
 .. figure:: images/sharpen.jpg
     :alt: Sharpen
 
-----------------------
-Shift channel
-----------------------
+
+## Shift channel
+
 
 Shifts the channels of the image.
 
 .. figure:: images/shift_channel.jpg
     :alt: Shift channel
 
-----------------------
-Shearing
-----------------------
+
+## Shearing
+
 
 Shears the image.
 
@@ -271,9 +270,9 @@ Shears the image.
     :alt: Shearing
 
 
-----------------------
-Translation
-----------------------
+
+## Translation
+
 
 Translates the image. 
 
