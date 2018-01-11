@@ -1,0 +1,144 @@
+{
+    "problems": {
+        "classification": {
+            "folders": {
+                "folders": {
+                    "linear": {
+                        "outputPath": ["path","Path where the images will be stored"]
+                    }
+                },
+                "hdf5": {
+                    "linear": {
+                        "outputPath": ["path","Path where the images will be stored"],
+                        "width": ["int","Width of the images that will be stored"],
+                        "height": ["int","Height of the images that will be stored"]
+                    },
+                    "power": {
+                        "outputPath": ["path","Path where the images will be stored"],
+                        "width": ["int","Width of the images that will be stored"],
+                        "height": ["int","Height of the images that will be stored"]
+                    }
+                },
+                "keras": {
+                    "linear": {
+                        "batchSize": ["int","Batch size that will be generated"]
+                    }
+                }
+            }
+        },
+        "localization": {
+            "pascalvoc": {
+                "pascalvoc": {
+                    "linear": {
+                        "outputPath": ["path","Path where the images will be stored"]
+                    }
+                },
+                "hdf5": {
+                    "linear": {
+                        "outputPath": ["path","Path where the images will be stored"],
+                        "width": ["int","Width of the images that will be stored"],
+                        "height": ["int","Height of the images that will be stored"]
+                    }
+                },
+                "keras": {
+                    "linear": {
+                        "batchSize": ["int","Batch size that will be generated"]
+                    }
+                }
+            }
+        },
+        "detection": {
+            "pascalvoc": {
+                "pascalvoc": {
+                    "linear": {
+                        "outputPath": ["path","Path where the images will be stored"]
+                    }
+                },
+                "keras": {
+                    "linear": {
+                        "batchSize": ["int","Batch size that will be generated"]
+                    }
+                }
+            }
+        },
+        "semantic_segmentation": {
+            "folders": {
+                "folders": {
+                    "linear": {
+                        "outputPath": ["path","Path where the images will be stored"],
+                        "labelsExtension": ["string", "Extension used to store the image labels (.tiff, .jpg, ...)"]
+                    }
+                },
+                "hdf5": {
+                    "linear": {
+                        "outputPath": ["path","Path where the images will be stored"],
+                        "width": ["int","Width of the images that will be stored"],
+                        "height": ["int","Height of the images that will be stored"],
+                        "labelsExtension": ["string", "Extension used to store the image labels (.tiff, .jpg, ...)"]
+                    },
+                    "power": {
+                        "outputPath": ["path","Path where the images will be stored"],
+                        "width": ["int","Width of the images that will be stored"],
+                        "height": ["int","Height of the images that will be stored"],
+                        "labelsExtension": ["string", "Extension used to store the image labels (.tiff, .jpg, ...)"]
+                    }
+                },
+                "keras": {
+                    "linear": {
+                        "batchSize": ["int","Batch size that will be generated"],
+                        "labelsExtension": ["string", "Extension used to store the image labels (.tiff, .jpg, ...)"]
+                    }
+                }
+            }
+        }
+    },
+    "techniques" :{
+        "average_blurring" : { "kernel" : ["int", "Kernel size for average blurring (either 3, 5, 7, 9 or 11)","3"]},
+        "bilateral_blurring" : {
+            "diameter" : ["int", "Diameter size for bilateral blurring","11"],
+            "sigmaColor" : ["int", "sigmaColor for bilateral blurring","21"],
+            "sigmaSpace" : ["int", "sigmaSpace for bilateral blurring","7"]
+        },
+        "blurring" : { "ksize" : ["int", "Kernel size for average blurring (either 3, 5, 7, 9 or 11)","3"]},
+        "crop" : {
+            "percentage" : ["int", "Percentage to keep during cropping (value between 0 and 1)","0.9"],
+            "startFrom" : ["option", "Position to start the cropping", ["TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT", "CENTER"],"TOPLEFT"]
+        },
+        "dropout" : {"percentage" : ["int", "Percentage to keep during cropping (value between 0 and 1)","0.05"]},
+        "elastic" : {
+            "alpha" : ["int", "Alpha value for elastic deformation (value between 0 and 1)","5"],
+            "sigma" : ["int", "Sigma value for elastic deformation","0.05"]
+        },
+        "equalize_histogram" : {},
+        "flip" : {"flip" : ["int", "Flip value: 1 for vertical flip, 0 for horizontal flip, -1 for both","1"]},
+        "gamma" : {"gamma" : ["int", "Gamma value (should be between 0 and 2.5)","1.5"]},
+        "gaussian_blur": { "kernel" : ["int", "Kernel size for Gaussian blurring (either 3, 5, 7, 9 or 11)","3"]},
+        "gaussian_noise": {
+            "mean" : ["int", "Mean value for Gaussian noise","0"],
+            "sigma" : ["int", "Sigma value for Gaussian noise","10"]
+        },
+        "median_blur": { "kernel" : ["int", "Kernel size for Gaussian blurring (either 3, 5, 7, 9 or 11)","3"]},
+        "none":  {},
+        "raise_blue":  { "power" : ["int", "Power for raising blue channel (value between 0.25 and 4)","0.9"]},
+        "raise_green": { "power" : ["int", "Power for raising green channel (value between 0.25 and 4)","0.9"]},
+        "raise_hue": { "power" : ["int", "Power for raising hue (value between 0.25 and 4)","0.9"]},
+        "raise_red": { "power" : ["int", "Power for raising red channel (value between 0.25 and 4)","0.9"]},
+        "raise_saturation": { "power" : ["int", "Power for raising saturation (value between 0.25 and 4)","0.9"]},
+        "raise_value": { "power" : ["int", "Power for raising value channel (value between 0.25 and 4)","0.9"]},
+        "resize": {
+            "percentage" : ["int", "Percentage for resizing", "1.5"],
+            "startFrom" : ["option", "Method for resizing", ["INTER_NEAREST", "INTER_LINEAR", "INTER_AREA", "INTER_CUBIC", "INTER_LANCZOS4"],"INTER_AREA"]
+        },
+        "rotate": { "angle" : ["int", "Angle for rotation (value between 0 and 360)","22"]},
+        "salt_and_pepper":{
+            "low" : ["int", "Low value for salt and pepper","0"],
+            "up" : ["int", "Up value for salt and pepper","25"]
+        },
+        "sharpen": {},
+        "shearing": { "a" : ["int", "Value for shearing","0.5"]},
+        "translation": {
+            "x" : ["int", "X translation", "10"],
+            "y" : ["int", "Y translation", "10"]
+        }
+    }
+}

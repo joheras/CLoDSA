@@ -1,0 +1,4 @@
+{
+    "scripPythonPath": "/home/joheras/pythonprojects/dataAugmentation/",
+    "virtualenv": "~/.virtualenvs/keras/bin/activate"
+}

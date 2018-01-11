@@ -1,0 +1,24 @@
+{
+  "augmentation_techniques":[
+    [
+      "blurring",
+      {
+        "ksize":"3"
+      }
+    ],
+    [
+      "gaussian_blur",
+      {
+        "kernel":"3"
+      }
+    ]
+  ],
+  "generation_mode":"linear",
+  "problem":"classification",
+  "output_mode":"folders",
+  "parameters":{
+    "outputPath":"/home/joheras/Escritorio/"
+  },
+  "annotation_mode":"folders",
+  "input_path":"/home/joheras/datasets/cats_and_dogs_small/train"
+}
