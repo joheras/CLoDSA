@@ -16,8 +16,7 @@ import numpy as np
 
 Smoothes the image using an average filter. 
 
-.. figure:: images/average_blurring.jpg
-    :alt: Average blurring
+![Average Blurring](images/average_blurring.jpg)
 
 
 ## Bilateral blurring
