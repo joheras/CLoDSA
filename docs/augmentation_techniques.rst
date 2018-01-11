@@ -4,7 +4,7 @@ Overview of Augmentation techniques
 
 We present the different techniques that can be applied to augment a dataset of images. In order to generate the samples presented in this section, it is necessary to load some libraries.
 
-```python
+```
 from techniques.techniqueFactory import createTechnique
 import cv2
 import numpy as np
