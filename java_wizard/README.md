@@ -10,10 +10,4 @@ If you want to run the Python library from this wizard, you need to install the 
 
 ## Use
 
-Run the java program and follow the instructions that appear there to create the configuration file. 
-
-
-
-
-
-
+Run the java program and follow the instructions that appear there to create the configuration file. Once that you have selected all the options, you can preview the augmentation techniques in a concrete sample, and also run the augmentation process. 
