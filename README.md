@@ -67,7 +67,7 @@ The following table presents the list of augmenters available in the library and
 
 
 | Technique | Description | Parameters | Change annotation |
-| --- | --- |  --- |
+| --- | --- | --- | --- |
 | Average blurring| Smoothes the image using an average filter. | *kernel*: Kernel size for average blurring (either 3, 5, 7, 9 or 11).| No |
 | Bilateral blurring | Applies bilateral blurring to the image. | *diameter*: Diameter size for bilateral blurring (integer value). *sigmaColor*: sigma color for bilateral blurring (integer value). *sigmaSpace*: sigma space for bilateral blurring (integer value)  | No |
 | Blurring | Blurs an image using the normalized box filter. | *ksize*: Kernel size for blurring (either 3, 5, 7, 9 or 11).  | No |
