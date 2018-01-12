@@ -1,6 +1,5 @@
-============
-Installation
-============
+# Installation
+
 
 The library uses Python 2.7 and Java, which must be installed. 
 
@@ -18,7 +17,7 @@ The following packages must be installed:
   * progressbar2
   * OpenCV (i.e. `cv2` must be available in python). 
 
-When executing the installer, these packages will be automatically installed/upgraded where needed. This is not the case for OpenCV, which must be installed manually. A good tutorial explaining how to install OpenCV y Ubuntu is available at https://www.pyimagesearch.com/2015/08/17/the-perfect-computer-vision-environment-pycharm-opencv-and-python-virtual-environments/
+When executing the installer, these packages will be automatically installed/upgraded where needed. This is not the case for OpenCV, which must be installed manually. A good tutorial explaining how to install OpenCV y Ubuntu is available at [Pyimagesearch](https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/).
 
 Once the packages are available, `clodeseaugmentor` can be installed using the following
 command::
