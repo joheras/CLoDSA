@@ -4,7 +4,7 @@ In this section, we will use a subset of the [cats and dogs dataset]() to show h
 
 ## Folder-Folder-Linear
 
-In this first example, we show how we can use the library for augmenting a dataset of images saved in folders and store the result in another folder. In this example, we use four augmentation techniques: equalize histogram, median blur, salt and pepper noise, and croping. The json file for this example is the following one. If you want to reproduce this example, you only need to change the value for the input_path and output_path parameters.   
+In this first example, we show how we can use the library for augmenting a dataset of images saved in folders and store the result in another folder. In this example, we use four augmentation techniques: equalize histogram, median blur, salt and pepper noise, and croping. The json file for this example (called cats_dogs_folder_folder_linear.json) is the following one. If you want to reproduce this example, you only need to change the value for the input_path and output_path parameters.   
 
 ```json
 {
@@ -47,6 +47,11 @@ In this first example, we show how we can use the library for augmenting a datas
 }
 ```
 
+To run the augmentation process, the following command must be executed from the terminal.
+
+```cmd
+python ...
+```
 
 
 
