@@ -1,24 +1,38 @@
 {
   "augmentation_techniques":[
     [
-      "blurring",
+      "flip",
       {
-        "ksize":"3"
+        "flip":"1"
       }
     ],
     [
-      "gaussian_blur",
+      "shearing",
       {
-        "kernel":"3"
+        "a":"0.5"
+      }
+    ],
+    [
+      "gamma",
+      {
+        "gamma":"1.5"
+      }
+    ],
+    [
+      "elastic",
+      {
+        "sigma":"0.05",
+        "alpha":"5"
       }
     ]
   ],
   "generation_mode":"linear",
-  "problem":"classification",
+  "problem":"semantic_segmentation",
   "output_mode":"folders",
   "parameters":{
-    "outputPath":"/home/joheras/Escritorio/"
+    "labelsExtension":".tif",
+    "outputPath":"/home/joheras/Escritorio/augmented/"
   },
   "annotation_mode":"folders",
-  "input_path":"/home/joheras/datasets/cats_and_dogs_small/train"
+  "input_path":"/home/joheras/Escritorio/Research/CLoDeSeAugmentor/docs/datasets/semantic_segmentation/buildings"
 }

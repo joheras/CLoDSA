@@ -1,6 +1,6 @@
 # Augmenting a dataset for object detection
 
-In this section, we will use a small set of images annotated with the position of stomas show how the library can be used for image augmentation for object detection. The dataset and the configuration file that we will employ for this example is available at the [datasets folder](datasets/detection).
+In this section, we will use a small set of images annotated with the position of stomas to show how the library can be used for image augmentation for object detection. The dataset and the configuration file that we will employ for this example is available at the [datasets folder](datasets/detection).
 
 ## PascalVOC-PascalVOC-Linear
 
@@ -51,10 +51,10 @@ The json file for this example (called stoma_pascalvoc_pascalvoc_linear.json) is
 To run the augmentation process, the following command must be executed from the terminal.
 
 ```cmd
-python augment.py -c violins_pascalvoc_pascalvoc_linear.json
+python augment.py -c stoma_pascalvoc_pascalvoc_linear.json
 ```
 
-We can see that the position of the violin is computed correctly in all the cases. 
+We can see that the positions of the stomas are obtained correctly in all the cases. 
 
 Original image
 ![Original](images/stoma.jpg)
