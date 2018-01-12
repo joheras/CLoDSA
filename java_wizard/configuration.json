@@ -100,7 +100,7 @@
         "change_to_lab" : {},
         "crop" : {
             "percentage" : ["int", "Percentage to keep during cropping (value between 0 and 1)","0.9"],
-            "startFrom" : ["option", "Position to start the cropping", ["TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT", "CENTER","TOPLEFT"] ]
+            "startFrom" : ["option", "Position to start the cropping", ["TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT", "CENTER"],"TOPLEFT"]
         },
         "dropout" : {"percentage" : ["int", "Percentage of pixels to drop (value between 0 and 1)","0.05"]},
         "elastic" : {
@@ -126,7 +126,7 @@
         "raise_value": { "power" : ["int", "Power for raising value channel (value between 0.25 and 4)","0.9"]},
         "resize": {
             "percentage" : ["int", "Percentage for resizing", "1.5"],
-            "method" : ["option", "Method for resizing", ["INTER_NEAREST", "INTER_LINEAR", "INTER_AREA", "INTER_CUBIC", "INTER_LANCZOS4","INTER_AREA"]]
+            "method" : ["option", "Method for resizing", ["INTER_NEAREST", "INTER_LINEAR", "INTER_AREA", "INTER_CUBIC", "INTER_LANCZOS4"],"INTER_AREA"]
         },
         "rotate": { "angle" : ["int", "Angle for rotation (value between 0 and 360)","22"]},
         "salt_and_pepper":{

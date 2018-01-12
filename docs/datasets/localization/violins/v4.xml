@@ -1,0 +1,26 @@
+<annotation>
+  <folder>images</folder>
+  <filename>v4</filename>
+  <path>Z:/home/joheras/Escritorio/Research/Vitoria/images/v4.jpg</path>
+  <source>
+    <database>Unknown</database>
+  </source>
+  <size>
+    <width>197</width>
+    <height>255</height>
+    <depth>3</depth>
+  </size>
+  <segmented>0</segmented>
+  <object>
+    <name>violin</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>62</xmin>
+      <ymin>82</ymin>
+      <xmax>118</xmax>
+      <ymax>250</ymax>
+    </bndbox>
+  </object>
+</annotation>

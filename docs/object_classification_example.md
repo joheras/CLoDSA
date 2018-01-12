@@ -1,6 +1,6 @@
 # Augmenting a dataset for object classification
 
-In this section, we will use a subset of the [cats and dogs dataset]() to show how the library can be used for image augmentation for object classification. The dataset and the configuration files that we will employ for these examples is available at the [datasets folder](datasets/object_classification).
+In this section, we will use a subset of the [cats and dogs dataset](https://www.kaggle.com/c/dogs-vs-cats) to show how the library can be used for image augmentation for object classification. The dataset and the configuration files that we will employ for these examples is available at the [datasets folder](datasets/object_classification).
 
 ## Folder-Folder-Linear
 
