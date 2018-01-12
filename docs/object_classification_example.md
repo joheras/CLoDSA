@@ -50,8 +50,62 @@ In this first example, we show how we can use the library for augmenting a datas
 To run the augmentation process, the following command must be executed from the terminal.
 
 ```cmd
-python ...
+python augment.py -c cats_dogs_folder_folder_linear.json
 ```
+
+## Folder-Keras-Linear
+
+In this second example, we show how we can use the library for augmenting a dataset of images saved in folders and use it to fed a Keras network. In this example, we use four augmentation techniques: equalize histogram, median blur, salt and pepper noise, and croping. The json file for this example (called cats_dogs_folder_keras_linear.json) is the following one. If you want to reproduce this example, you only need to change the value for the input_path.   
+
+```json
+{
+  "augmentation_techniques":[
+    [
+      "equalize_histogram",
+      {
+        
+      }
+    ],
+    [
+      "median_blur",
+      {
+        "kernel":"3"
+      }
+    ],
+    [
+      "salt_and_pepper",
+      {
+        "low":"0",
+        "up":"25"
+      }
+    ],
+    [
+      "crop",
+      {
+        "startFrom":"TOPLEFT",
+        "percentage":"0.9"
+      }
+    ]
+  ],
+  "generation_mode":"linear",
+  "problem":"classification",
+  "output_mode":"folders",
+  "parameters":{
+    "batchSize": 32,
+    "width": 64,
+    "height": 64
+  },
+  "annotation_mode":"folders",
+  "input_path":"/home/joheras/Escritorio/Research/CLoDeSeAugmentor/docs/datasets/object_classification"
+}
+```
+
+To run the augmentation process and fed it to a Keras network, we can write the following code.
+
+```cmd
+python augment.py -c cats_dogs_folder_folder_linear.json
+```
+
 
 
 
