@@ -58,16 +58,16 @@ python augment.py -c building_folder_folder_linear.json
 We can see that the annotation of the image is correct in the four cases. 
 
 Original image, its annotation, and the addition (blending) of them
-![Original](images/23429020_15.tiff)![Original label](images/23429020_15.tif)![Original blending](images/buildings.jpg)
+![Original](images/23429020_15.jpg)![Original label](images/23429020_15l.jpg)![Original blending](images/buildings.jpg)
 
 Image with flipping (altering technique)
-![Flip](images/0_0_23429020_15.tiff)![Flip label](images/0_0_23429020_15.tif)![Flip blending](images/buildings0.jpg)
+![Flip](images/0_0_23429020_15.jpg)![Flip label](images/0_0_23429020_15l.jpg)![Flip blending](images/buildings0.jpg)
 
 Image with shearing (altering technique)
-![Shearing](images/0_1_23429020_15.tiff)![Shearing label](images/0_1_23429020_15.tif)![Shearing blending](images/buildings1.jpg)
+![Shearing](images/0_1_23429020_15.jpg)![Shearing label](images/0_1_23429020_15l.jpg)![Shearing blending](images/buildings1.jpg)
 
 Image with gamma correction (non-altering technique)
-![Gamma](images/0_2_23429020_15.tiff)![Gamma label](images/0_2_23429020_15.tif)![Gamma blending](images/buildings2.jpg)
+![Gamma](images/0_2_23429020_15.jpg)![Gamma label](images/0_2_23429020_15l.jpg)![Gamma blending](images/buildings2.jpg)
 
 Image with elastic deformation (altering technique)
-![Elastic](images/0_3_23429020_15.tiff)![Elastic label](images/0_3_23429020_15.tif)![Elastic blending](images/buildings3.jpg)
+![Elastic](images/0_3_23429020_15.jpg)![Elastic label](images/0_3_23429020_15l.jpg)![Elastic blending](images/buildings3.jpg)
