@@ -13,9 +13,9 @@ CLoDeSeAugmentor is an open-source image augmentation library for object classif
 * It is possible to easily add new augmentation techniques and apply them for object classification, localization, detection, and semantic segmentation. 
 
 
-## Requirements and installation
+## Requirements and installation of the library
 
-The library uses Python 2.7 and Java, which must be installed. 
+The library uses Python 2.7, which must be installed. 
 
 The following packages must be installed:
 
@@ -43,6 +43,11 @@ This installs the latest version directly from github. If any error pops up, try
 Alternatively, you can install the latest version which was added to pypi via ``pip install ...``. That version can sometimes be behind the version on github.
 
 To uninstall the library use ``pip uninstall ...``.
+
+## Requirements and installation of the wizard
+
+To install the wizard, you need to follow the instructions provided in the [wizard page](java_wizard/).
+
 
 ## Documentation
 
