@@ -29,7 +29,7 @@
   ],
   "generation_mode":"linear",
   "problem":"classification",
-  "output_mode":"folders",
+  "output_mode":"keras",
   "parameters":{
     "batchSize": 32,    
     "width": 64,
