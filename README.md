@@ -46,8 +46,11 @@ To uninstall the library use ``pip uninstall ...``.
 
 ## Documentation
 
-
-
+* [Method for augmenting images in classification, localization, detection and semantic segmentation](docs/method.md)
+* [Augmentation techniques](docs/augmentation_techniques.md)
+* [Configuration options](docs/configuration.md)
+* [Input-output options](docs/input-output-generation.md)
+* [Adding new techniques](docs/adding_techniques.md)
 
 
 ## Examples

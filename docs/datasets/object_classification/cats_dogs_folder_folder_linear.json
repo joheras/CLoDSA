@@ -1,0 +1,38 @@
+{
+  "augmentation_techniques":[
+    [
+      "equalize_histogram",
+      {
+        
+      }
+    ],
+    [
+      "median_blur",
+      {
+        "kernel":"3"
+      }
+    ],
+    [
+      "salt_and_pepper",
+      {
+        "low":"0",
+        "up":"25"
+      }
+    ],
+    [
+      "crop",
+      {
+        "startFrom":"TOPLEFT",
+        "percentage":"0.9"
+      }
+    ]
+  ],
+  "generation_mode":"linear",
+  "problem":"classification",
+  "output_mode":"folders",
+  "parameters":{
+    "outputPath":"/home/joheras/cats_dogs/"
+  },
+  "annotation_mode":"folders",
+  "input_path":"/home/joheras/Escritorio/Research/CLoDeSeAugmentor/docs/datasets/object_classification"
+}
