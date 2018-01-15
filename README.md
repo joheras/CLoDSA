@@ -55,7 +55,7 @@ To install the wizard, you need to follow the instructions provided in the [wiza
 * [Configuration options](docs/configuration.md)
 * [Input-output options](docs/input-output-generation.md)
 * [Adding new techniques](docs/adding_techniques.md)
-* [Previsualization](docs/previews.md)
+* [Previsualization](docs/preview.md)
 
 
 ## Examples
