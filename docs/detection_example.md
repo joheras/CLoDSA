@@ -51,7 +51,7 @@ The json file for this example (called stoma_pascalvoc_pascalvoc_linear.json) is
 To run the augmentation process, the following command must be executed from the terminal.
 
 ```cmd
-python augment.py -c stoma_pascalvoc_pascalvoc_linear.json
+clodsa stoma_pascalvoc_pascalvoc_linear.json
 ```
 
 We can see that the positions of the stomas are obtained correctly in all the cases. 

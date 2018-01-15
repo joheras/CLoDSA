@@ -51,7 +51,7 @@ The json file for this example (called violins_pascalvoc_pascalvoc_linear.json) 
 To run the augmentation process, the following command must be executed from the terminal.
 
 ```cmd
-python augment.py -c violins_pascalvoc_pascalvoc_linear.json
+clodsa violins_pascalvoc_pascalvoc_linear.json
 ```
 
 We can see that the position of the violin is computed correctly in all the cases. 

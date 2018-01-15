@@ -50,7 +50,7 @@ In this first example, we show how we can use the library for augmenting a datas
 To run the augmentation process, the following command must be executed from the terminal.
 
 ```cmd
-python augment.py -c cats_dogs_folder_folder_linear.json
+clodsa cats_dogs_folder_folder_linear.json
 ```
 
 ## Folder-Keras-Linear
@@ -100,7 +100,7 @@ In this second example, we show how we can use the library for augmenting a data
 }
 ```
 
-In this case, to run the augmentation we need to work in a python file where we define and use the network. The code of this example is available in the [project webpage]().
+In this case, to run the augmentation we need to work in a python file where we define and use the network. The code of this example is available in the [project webpage](../clodsa/clodsa/keras_example.py).
 
 We start by reading the configuration file that will be passed to the program as input. 
 

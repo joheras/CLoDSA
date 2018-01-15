@@ -1,6 +1,6 @@
 # Augmenting a dataset for semantic segmentation
 
-In this section, we will use a small set of images from the [Road and Building Detection Datasets]() to show how the library can be used for image augmentation for semantic segmentation. The dataset and the configuration file that we will employ for this example is available at the [datasets folder](datasets/semantic_segmentation).
+In this section, we will use a small set of images from the [Road and Building Detection Datasets](https://www.cs.toronto.edu/~vmnih/data/) to show how the library can be used for image augmentation for semantic segmentation. The dataset and the configuration file that we will employ for this example is available at the [datasets folder](datasets/semantic_segmentation).
 
 ## Folder-Folder-Linear
 
@@ -52,7 +52,7 @@ The json file for this example (called building_folder_folder_linear.json) is th
 To run the augmentation process, the following command must be executed from the terminal.
 
 ```cmd
-python augment.py -c building_folder_folder_linear.json
+clodsa building_folder_folder_linear.json
 ```
 
 We can see that the annotation of the image is correct in the four cases. 

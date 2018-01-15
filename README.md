@@ -1,6 +1,6 @@
-# CLoDeSeAugmentor
+# CLoDSA
 
-CLoDeSeAugmentor is an open-source image augmentation library for object classification, localization, detection and semantic segmentation. It supports a wide variety of augmentation techniques and allows the user to easily combine them. 
+CLoDSA is an open-source image augmentation library for object classification, localization, detection and semantic segmentation. It supports a wide variety of augmentation techniques and allows the user to easily combine them. 
 
 
 ## Features
@@ -33,16 +33,15 @@ The following packages must be installed:
 
 When executing the installer, these packages will be automatically installed/upgraded where needed. This is not the case for OpenCV, which must be installed manually. A good tutorial explaining how to install OpenCV y Ubuntu is available at [Pyimagesearch](https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/).
 
-Once the packages are available, `clodeseaugmentor` can be installed using the following
-command::
+Once the packages are available, `clodsa` can be installed using the following command
 
-    pip install ....
+    pip install clodsa
 
-This installs the latest version directly from github. If any error pops up, try adding ``sudo`` in front (i.e. ``sudo pip install ...``).
+This installs the latest version directly from github. If any error pops up, try adding ``sudo`` in front (i.e. ``sudo pip install clodsa``).
 
-Alternatively, you can install the latest version which was added to pypi via ``pip install ...``. That version can sometimes be behind the version on github.
+Alternatively, you can install the latest version which was added to pypi via ``pip install clodsa``. That version can sometimes be behind the version on github.
 
-To uninstall the library use ``pip uninstall ...``.
+To uninstall the library use ``pip uninstall clodsa``.
 
 ## Requirements and installation of the wizard
 
@@ -56,6 +55,7 @@ To install the wizard, you need to follow the instructions provided in the [wiza
 * [Configuration options](docs/configuration.md)
 * [Input-output options](docs/input-output-generation.md)
 * [Adding new techniques](docs/adding_techniques.md)
+* [Previsualization](docs/previews.md)
 
 
 ## Examples
