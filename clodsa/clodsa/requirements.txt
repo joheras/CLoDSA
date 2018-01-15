@@ -1,0 +1,9 @@
+mahotas==1.4.3
+imutils==0.3.6
+Keras==2.0.6
+commentjson==0.6
+scipy==0.19.1
+h5py==2.6.0
+numpy==1.13.3
+progressbar2==3.34.3
+scikit_learn==0.19.1

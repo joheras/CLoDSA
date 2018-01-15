@@ -1,0 +1,26 @@
+{
+  "augmentation_techniques":[
+
+    [
+      "rotate",
+      {
+        "angle":"90"
+      }
+    ],
+    [
+      "crop",
+      {
+        "startFrom":"TOPLEFT",
+        "percentage":"0.8"
+      }
+    ]
+  ],
+  "generation_mode":"linear",
+  "problem":"detection",
+  "output_mode":"pascalvoc",
+  "parameters":{
+    "outputPath":"/home/joheras/Escritorio/augmented/"
+  },
+  "annotation_mode":"pascalvoc",
+  "input_path":"/home/joheras/Escritorio/Research/CLoDeSeAugmentor/docs/datasets/detection/stoma"
+}

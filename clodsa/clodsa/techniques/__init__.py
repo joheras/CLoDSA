@@ -1,0 +1,1 @@
+from .techniqueFactory import createTechnique
