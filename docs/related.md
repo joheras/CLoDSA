@@ -15,7 +15,7 @@ All these libraries, both the ones that are independent of any framework and tho
 ## Techniques available in the different libraries
 
 ||CLoDSA|Keras|Caffe-Data-Augmentation|TFLearn|Augmenter|Imgaug|Augmentor|Keras-transform|Codebox|Data-augmentation|ImageTransform|transforms pytorch|
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 |Average blur|✓|||||✓|||||✓||
 |Bilateral blur|✓|||||✓|||||||
 |Brightness noising|||✓||✓||||||||
