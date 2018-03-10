@@ -31,7 +31,7 @@ The following packages must be installed:
   * progressbar2
   * OpenCV (i.e. `cv2` must be available in python). 
 
-When executing the installer, these packages will be automatically installed/upgraded where needed. This is not the case for OpenCV, which must be installed manually. A good tutorial explaining how to install OpenCV y Ubuntu is available at [Pyimagesearch](https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/).
+When executing the installer, these packages will be automatically installed/upgraded where needed. This is not the case for OpenCV, which must be installed manually. A good tutorial explaining how to install OpenCV and Ubuntu is available at [Pyimagesearch](https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/).
 
 Once the packages are available, `clodsa` can be installed using the following command
 
@@ -56,6 +56,7 @@ To install the wizard, you need to follow the instructions provided in the [wiza
 * [Input-output options](docs/input-output-generation.md)
 * [Adding new techniques](docs/adding_techniques.md)
 * [Previsualization](docs/preview.md)
+* [Related projects](docs/related.md)
 
 
 ## Examples

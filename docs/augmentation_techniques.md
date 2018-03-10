@@ -351,7 +351,7 @@ Adds salt and pepper noise to the image.
 ```python
 t = createTechnique("salt_and_pepper", {"low" : 0,"up":25})
 img1 = t.apply(img)
-cv2.imwrite("salt_and_peper.jpg",np.hstack([img,img1]))
+cv2.imwrite("salt_and_pepper.jpg",np.hstack([img,img1]))
 ```
 
 ![Salt and pepper](images/salt_and_pepper.jpg)
