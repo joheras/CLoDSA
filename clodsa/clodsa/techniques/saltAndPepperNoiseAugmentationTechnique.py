@@ -1,12 +1,12 @@
-from itechnique import ITechnique
+from technique import NonAlteringTechnique
 import cv2
 import numpy as np
 
-class saltAndPepperNoiseAugmentationTechnique(ITechnique):
+class saltAndPepperNoiseAugmentationTechnique(NonAlteringTechnique):
 
 
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,False)
+        NonAlteringTechnique.__init__(self, parameters)
         if 'low' in parameters.keys():
             self.low = float(parameters["low"])
         else:

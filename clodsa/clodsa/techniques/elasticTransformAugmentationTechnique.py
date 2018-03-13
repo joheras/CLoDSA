@@ -1,13 +1,13 @@
-from itechnique import ITechnique
+from technique import AlteringTechnique
 import cv2
 import numpy as np
 from scipy.ndimage.interpolation import map_coordinates
 from scipy.ndimage.filters import gaussian_filter
 
-class elasticTransformAugmentationTechnique(ITechnique):
+class elasticTransformAugmentationTechnique(AlteringTechnique):
 
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,True)
+        AlteringTechnique.__init__(self, parameters)
         if 'alpha' in parameters.keys():
             self.alpha = float(parameters["alpha"])
         else:

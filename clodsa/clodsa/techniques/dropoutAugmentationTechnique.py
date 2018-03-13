@@ -1,11 +1,11 @@
-from itechnique import ITechnique
+from technique import NonAlteringTechnique
 import random
 
-class dropoutAugmentationTechnique(ITechnique):
+class dropoutAugmentationTechnique(NonAlteringTechnique):
 
     # percentage of pixels to dropout is a value between 0 and 1
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,False)
+        NonAlteringTechnique.__init__(self, parameters)
         if 'percentage' in parameters.keys():
             self.percentage = float(parameters["percentage"])
         else:

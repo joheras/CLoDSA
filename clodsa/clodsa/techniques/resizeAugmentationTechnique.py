@@ -1,8 +1,8 @@
-from itechnique import ITechnique
+from technique import AlteringTechnique
 import cv2
 
 
-class resizeAugmentationTechnique(ITechnique):
+class resizeAugmentationTechnique(AlteringTechnique):
 
     methods = {'INTER_NEAREST': cv2.INTER_NEAREST,
                'INTER_LINEAR': cv2.INTER_LINEAR,
@@ -13,7 +13,7 @@ class resizeAugmentationTechnique(ITechnique):
     # valid methods for interpolation methods: INTER_AREA, INTER_CUBIC,
     # INTER_NEAREST, INTER_LINEAR, INTER_LANCZOS4
     def __init__(self, parameters):
-        ITechnique.__init__(self,parameters,True)
+        AlteringTechnique.__init__(self, parameters)
         if 'percentage' in parameters.keys():
             self.percentage = float(parameters["percentage"])
         else:

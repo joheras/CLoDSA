@@ -1,12 +1,12 @@
-from itechnique import ITechnique
+from technique import NonAlteringTechnique
 import cv2
 import numpy as np
 
-class raiseHueAugmentationTechnique(ITechnique):
+class raiseHueAugmentationTechnique(NonAlteringTechnique):
 
     # Valid values for pover are in the range (0.25,4]
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,False)
+        NonAlteringTechnique.__init__(self, parameters)
         if 'power' in parameters.keys():
             self.power = float(parameters["power"])
         else:

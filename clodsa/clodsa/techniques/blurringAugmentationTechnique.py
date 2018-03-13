@@ -1,12 +1,12 @@
-from itechnique import ITechnique
+from technique import NonAlteringTechnique
 import cv2
 import numpy as np
 
-class blurringAugmentationTechnique(ITechnique):
+class blurringAugmentationTechnique(NonAlteringTechnique):
 
     # Valid values for ksize are 3,5,7,9, and 11
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,False)
+        NonAlteringTechnique.__init__(self, parameters)
         if 'ksize' in parameters.keys():
             self.ksize = int(parameters["ksize"])
         else:

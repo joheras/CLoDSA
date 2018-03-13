@@ -1,14 +1,14 @@
-from itechnique import ITechnique
+from technique import AlteringTechnique
 import cv2
 import numpy as np
 import random
 
-class rotateAugmentationTechnique(ITechnique):
+class rotateAugmentationTechnique(AlteringTechnique):
 
     # Valid angle is in the range [0,360), or it can also be a pair
     # indicating the range of angles
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,True)
+        AlteringTechnique.__init__(self, parameters)
         if 'angle' in parameters.keys():
             angle = int(parameters["angle"])
         else:

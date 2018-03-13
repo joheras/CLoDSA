@@ -1,13 +1,13 @@
-from itechnique import ITechnique
+from technique import NonAlteringTechnique
 import cv2
 import numpy as np
 from keras.preprocessing.image import *
 
-class shiftChannelAugmentationTechnique(ITechnique):
+class shiftChannelAugmentationTechnique(NonAlteringTechnique):
 
     # Valid values for shift are positive values
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,False)
+        NonAlteringTechnique.__init__(self, parameters)
         if 'shift' in parameters.keys():
             self.shift = float(parameters["shift"])
         else:

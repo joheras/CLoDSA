@@ -1,14 +1,14 @@
-from itechnique import ITechnique
+from technique import AlteringTechnique
 import cv2
 
-class cropAugmentationTechnique(ITechnique):
+class cropAugmentationTechnique(AlteringTechnique):
 
     # percentage is a value between 0 and 1
     # startFrom indicates the starting point of the cropping,
     # the possible values are TOPLEFT, TOPRIGHT, BOTTOMLEFT,
     # BOTTOMRIGHT, and CENTER
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,True)
+        AlteringTechnique.__init__(self, parameters)
         if 'percentage' in parameters.keys():
             self.percentage = float(parameters["percentage"])
         else:

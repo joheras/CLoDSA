@@ -1,11 +1,11 @@
-from itechnique import ITechnique
+from technique import AlteringTechnique
 import cv2
 import numpy as np
 
-class translationAugmentationTechnique(ITechnique):
+class translationAugmentationTechnique(AlteringTechnique):
 
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,True)
+        AlteringTechnique.__init__(self, parameters)
         if 'x' in parameters.keys():
             self.x = int(parameters["x"])
         else:

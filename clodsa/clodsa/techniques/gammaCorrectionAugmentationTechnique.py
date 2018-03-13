@@ -1,12 +1,12 @@
-from itechnique import ITechnique
+from technique import NonAlteringTechnique
 import cv2
 import numpy as np
 
-class gammaCorrectionAugmentationTechnique(ITechnique):
+class gammaCorrectionAugmentationTechnique(NonAlteringTechnique):
 
     # Valid values for gamma are in the range (0,2.5]
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,False)
+        NonAlteringTechnique.__init__(self, parameters)
         if 'gamma' in parameters.keys():
             self.gamma = float(parameters["gamma"])
         else:

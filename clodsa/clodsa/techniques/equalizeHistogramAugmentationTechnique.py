@@ -1,11 +1,11 @@
-from itechnique import ITechnique
+from technique import NonAlteringTechnique
 import cv2
 
-class equalizeHistogramAugmentationTechnique(ITechnique):
+class equalizeHistogramAugmentationTechnique(NonAlteringTechnique):
 
 
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,False)
+        NonAlteringTechnique.__init__(self, parameters)
 
     def apply(self, image):
         if len(image.shape) == 3:

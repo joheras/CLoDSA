@@ -1,11 +1,11 @@
-from itechnique import ITechnique
+from technique import AlteringTechnique
 import cv2
 
-class flipAugmentationTechnique(ITechnique):
+class flipAugmentationTechnique(AlteringTechnique):
 
     # Valid values for flip are -1,0,1
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,True)
+        AlteringTechnique.__init__(self, parameters)
         if 'flip' in parameters.keys():
             self.flip = int(parameters["flip"])
         else:

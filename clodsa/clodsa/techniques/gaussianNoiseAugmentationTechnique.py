@@ -1,12 +1,12 @@
-from itechnique import ITechnique
+from technique import NonAlteringTechnique
 import cv2
 import numpy as np
 
-class gaussianNoiseAugmentationTechnique(ITechnique):
+class gaussianNoiseAugmentationTechnique(NonAlteringTechnique):
 
 
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,False)
+        NonAlteringTechnique.__init__(self, parameters)
         if 'mean' in parameters.keys():
             self.mean = float(parameters["mean"])
         else:

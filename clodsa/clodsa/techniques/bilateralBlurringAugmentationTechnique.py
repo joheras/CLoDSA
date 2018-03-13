@@ -1,13 +1,13 @@
-from itechnique import ITechnique
+from technique import NonAlteringTechnique
 import cv2
 import numpy as np
 
-class bilateralBlurringAugmentationTechnique(ITechnique):
+class bilateralBlurringAugmentationTechnique(NonAlteringTechnique):
 
     # Examples for values of diameter, sigmaColor, and sigmaSpace are
     # (11,21,7), (11,41,21), (11,61,39).
     def __init__(self,parameters):
-        ITechnique.__init__(self,parameters,False)
+        NonAlteringTechnique.__init__(self, parameters)
         if 'diameter' in parameters.keys():
             self.diameter = int(parameters["diameter"])
         else:

@@ -1,5 +1,5 @@
 from iaugmentor import IAugmentor
-from abc import ABCMeta,abstractmethod
+from abc import ABCMeta
 
 class IAugmentorClassification(IAugmentor):
     __metaclass__ = ABCMeta
