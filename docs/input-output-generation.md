@@ -12,7 +12,7 @@ In order to add a new mode, it is necessary to implement a class that extends th
 
 ## Adding the mode to the factory
 
-To integrate the new mode with the rest of the framework, it is also necessary to modify the list of Augmentors provided in the augmentorFactory.py file to add the class of the new technique. 
+To integrate the new mode with the rest of the framework, it is also necessary to modify the list of Augmentors provided in the augmentorsList.py file to add the class of the new technique. 
 
 ## Including the mode in the Java wizard
 
