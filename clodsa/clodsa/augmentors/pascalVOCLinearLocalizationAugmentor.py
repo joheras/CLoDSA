@@ -113,7 +113,7 @@ class PascalVOCLinearLocalizationAugmentor:
         self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
-        self.imagePaths = list(paths.list_images(self.inputPath))
+        self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
         self.labelPaths = list(paths.list_files(self.inputPath,validExts=(".xml")))
         if (len(self.imagePaths) != len(self.labelPaths)):
             raise Exception("The number of images is different to the number of annotations")

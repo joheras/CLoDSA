@@ -44,7 +44,7 @@ class FolderLinearClassificationAugmentor:
         self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
-        self.imagePaths = list(paths.list_images(self.inputPath))
+        self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
 
     def createOutputDirs(self):
         dirs = [d for d in os.listdir(self.inputPath) if os.path.isdir(os.path.join(self.inputPath, d))]

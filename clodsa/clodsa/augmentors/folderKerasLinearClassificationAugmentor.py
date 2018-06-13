@@ -53,7 +53,7 @@ class FolderKerasLinearClassificationAugmentor:
         self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
-        self.imagePaths = list(paths.list_images(self.inputPath))
+        self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
         random.shuffle(self.imagePaths)
         self.numImages = len(self.imagePaths)
         self.labels = [p.split(os.path.sep)[-2] for p in self.imagePaths]

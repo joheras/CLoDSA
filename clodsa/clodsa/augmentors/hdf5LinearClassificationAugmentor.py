@@ -48,7 +48,7 @@ class HDF5LinearClassificationAugmentor:
         self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
-        self.imagePaths = list(paths.list_images(self.inputPath))
+        self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
 
 
     def applyAugmentation(self):

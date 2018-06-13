@@ -9,6 +9,7 @@ from hdf5PowerClassificationAugmentor import HDF5PowerClassificationAugmentor
 from hdf5PowerSegmentationAugmentor import HDF5PowerSegmentationAugmentor
 from pascalVOCLinearDetectionAugmentor import PascalVOCLinearDetectionAugmentor
 from pascalVOCLinearLocalizationAugmentor import PascalVOCLinearLocalizationAugmentor
+from yoloLinearDetectionAugmentor import yoloLinearDetectionAugmentor
 
 # List of augmentors organized by problem, then annotation mode, then output mode, and
 # finally generation
@@ -37,6 +38,7 @@ Augmentors = {
                 "linear": HDF5LinearLocalizationAugmentor,
             },
 
+
             },
         },
 
@@ -47,6 +49,12 @@ Augmentors = {
                 },
 
             },
+        "yolo": {
+            "yolo": {
+                "linear": yoloLinearDetectionAugmentor
+            },
+
+        },
         },
 
     "semantic_segmentation" : {

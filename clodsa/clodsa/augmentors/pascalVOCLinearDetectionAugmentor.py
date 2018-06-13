@@ -60,8 +60,8 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
     tree = ET.parse(labelPath)
     root = tree.getroot()
     objects = root.findall('object')
-    if(len(objects)<1):
-        raise Exception("The xml should contain at least one object")
+    #if(len(objects)<1):
+    #    raise Exception("The xml should contain at least one object")
     boxes = []
     for object in objects:
         category = object.find('name').text
@@ -71,7 +71,6 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
         h = int(bndbox.find('ymax').text)-y
         w = int(bndbox.find('xmax').text) - x
         boxes.append((category, (x, y, w, h)))
-    print(len(boxes))
     for (j, generator) in enumerate(generators):
         (newimage, newboxes) = generator.applyForDetection(image, boxes)
 
@@ -118,7 +117,7 @@ class PascalVOCLinearDetectionAugmentor:
         self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
-        self.imagePaths = list(paths.list_images(self.inputPath))
+        self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
         self.labelPaths = list(paths.list_files(self.inputPath,validExts=(".xml")))
         if (len(self.imagePaths) != len(self.labelPaths)):
             raise Exception("The number of images is different to the number of annotations")
