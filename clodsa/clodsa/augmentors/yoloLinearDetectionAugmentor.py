@@ -38,7 +38,7 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
             file = open(outputPath + "/" + str(i) + "_" + str(j) + "_" + name[0:name.rfind(".")]+".txt", "w")
             for box in newboxes:
                 (category, (x, y, wb, hb)) = box
-                file.write(category + " " + float(x+wb/2)/wI + " " + float(y+hb/2)/hI + " " + str(float(wb)/wI) + " " + str(float(hb)/hI))
+                file.write(category + " " + str(float(x+wb/2)/wI) + " " + str(float(y+hb/2)/hI) + " " + str(float(wb)/wI) + " " + str(float(hb)/hI)+ "\n")
             file.close()
         else:
             file = open(outputPath + "/" + str(i) + "_" + str(j) + "_" + name[0:name.rfind(".")] + ".txt", "w")

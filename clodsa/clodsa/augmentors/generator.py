@@ -1,11 +1,11 @@
 from detection import detectBox,detectBoxes
-from techniques.technique import AlteringTechnique,NonAlteringTechnique
+from ..techniques.technique import AlteringTechnique,NonAlteringTechnique
 
 
 class Generator(object):
 
     def __init__(self,technique):
-        if (isinstance(self.technique, AlteringTechnique)) or (isinstance(self.technique, NonAlteringTechnique)):
+        if (isinstance(technique, AlteringTechnique)) or (isinstance(technique, NonAlteringTechnique)):
             self.technique = technique
         else:
             raise ValueError("The technique should be an object of the class Technique")
