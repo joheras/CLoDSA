@@ -19,14 +19,15 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
     #if(len(objects)<1):
     #    raise Exception("The xml should contain at least one object")
     boxes = []
-    for line in lines:
-        components = line.split(" ")
-        category = components[0]
-        x  = int(float(components[1])*wI - float(components[3])*wI/2)
-        y = int(float(components[2])*hI - float(components[4])*hI/2)
-        h = int(float(components[4])*hI)
-        w = int(float(components[3])*wI)
-        boxes.append((category, (x, y, w, h)))
+    if lines != ['']:
+        for line in lines:
+            components = line.split(" ")
+            category = components[0]
+            x  = int(float(components[1])*wI - float(components[3])*wI/2)
+            y = int(float(components[2])*hI - float(components[4])*hI/2)
+            h = int(float(components[4])*hI)
+            w = int(float(components[3])*wI)
+            boxes.append((category, (x, y, w, h)))
     for (j, generator) in enumerate(generators):
         (newimage, newboxes) = generator.applyForDetection(image, boxes)
 
