@@ -30,6 +30,7 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
             boxes.append((category, (x, y, w, h)))
     for (j, generator) in enumerate(generators):
         (newimage, newboxes) = generator.applyForDetection(image, boxes)
+        (hI, wI) = newimage.shape[:2]
 
         if newboxes is not None:
             cv2.imwrite(outputPath + "/" + str(i) + "_" + str(j) + "_" + name,
