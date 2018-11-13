@@ -12,7 +12,7 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
 
     (i, imagePath) = i_and_imagePath
     image = cv2.imread(imagePath)
-    (wI, hI) = image.shape[:2]
+    (hI, wI) = image.shape[:2]
     name = imagePath.split(os.path.sep)[-1]
     labelPath = '/'.join(imagePath.split(os.path.sep)[:-1]) + "/"+name[0:name.rfind(".")] + ".txt"
     lines = [line.rstrip('\n') for line in open(labelPath)]
