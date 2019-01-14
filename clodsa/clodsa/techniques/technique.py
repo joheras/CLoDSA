@@ -1,8 +1,8 @@
+from builtins import object
 from abc import ABCMeta, abstractmethod
+from future.utils import with_metaclass
 
-class Technique:
-    __metaclass__ = ABCMeta
-
+class Technique(with_metaclass(ABCMeta, object)):
     def __init__(self, parameters = None):
         self.parameters = parameters
 
@@ -11,9 +11,9 @@ class Technique:
         raise NotImplementedError
 
 
-class AlteringTechnique(Technique):
-    __metaclass__ = ABCMeta
 
+
+class PositionVariantTechnique(with_metaclass(ABCMeta, Technique)):
     def __init__(self, parameters=None):
         Technique.__init__(self, parameters)
 
@@ -21,12 +21,24 @@ class AlteringTechnique(Technique):
     def apply(self, image):
         raise NotImplementedError
 
-class NonAlteringTechnique(Technique):
-    __metaclass__ = ABCMeta
-
+class PositionInvariantTechnique(with_metaclass(ABCMeta, Technique)):
     def __init__(self, parameters=None):
         Technique.__init__(self, parameters)
 
     @abstractmethod
     def apply(self, image):
         raise NotImplementedError
+
+class DecoratorTechnique(Technique):
+
+    def __init__(self, technique,dictLabels=None):
+        self.technique=technique
+        self.dictLabels = dictLabels
+
+    def apply(self,image):
+        return self.technique.apply(image)
+
+    def transform_label(self,label):
+        if (self.dictLabels is not None) and (label in self.dictLabels.keys()):
+            return self.dictLabels[label]
+        return label

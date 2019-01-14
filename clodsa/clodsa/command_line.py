@@ -1,5 +1,6 @@
-import augment
-import generate_sample
+from __future__ import absolute_import
+from . import augment
+from . import generate_sample
 import argparse
 import sys
 

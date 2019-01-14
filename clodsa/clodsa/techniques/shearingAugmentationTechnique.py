@@ -1,12 +1,13 @@
-from technique import AlteringTechnique
+from __future__ import absolute_import
+from .technique import PositionVariantTechnique
 import cv2
 import numpy as np
 
-class shearingAugmentationTechnique(AlteringTechnique):
+class shearingAugmentationTechnique(PositionVariantTechnique):
 
     def __init__(self,parameters):
-        AlteringTechnique.__init__(self, parameters, True)
-        if 'a' in parameters.keys():
+        PositionVariantTechnique.__init__(self, parameters, True)
+        if 'a' in list(parameters.keys()):
             self.a = float(parameters["a"])
         else:
             self.a = 0.5

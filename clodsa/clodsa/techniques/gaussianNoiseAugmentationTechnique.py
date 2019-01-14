@@ -1,17 +1,18 @@
-from technique import NonAlteringTechnique
+from __future__ import absolute_import
+from .technique import PositionInvariantTechnique
 import cv2
 import numpy as np
 
-class gaussianNoiseAugmentationTechnique(NonAlteringTechnique):
+class gaussianNoiseAugmentationTechnique(PositionInvariantTechnique):
 
 
     def __init__(self,parameters):
-        NonAlteringTechnique.__init__(self, parameters)
-        if 'mean' in parameters.keys():
+        PositionInvariantTechnique.__init__(self, parameters)
+        if 'mean' in list(parameters.keys()):
             self.mean = float(parameters["mean"])
         else:
             self.mean = 0
-        if 'sigma' in parameters.keys():
+        if 'sigma' in list(parameters.keys()):
             self.sigma = float(parameters["sigma"])
         else:
             self.sigma = 10

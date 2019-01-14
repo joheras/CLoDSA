@@ -1,10 +1,12 @@
-from augmentors.augmentorFactory import createAugmentor
-from augmentors.generator import Generator
-from techniques.techniqueFactory import createTechnique
+from __future__ import print_function
+from __future__ import absolute_import
+from .augmentors.augmentorFactory import createAugmentor
+from .augmentors.generator import Generator
+from .techniques.techniqueFactory import createTechnique
 import argparse
-from utils.conf import Conf
+from .utils.conf import Conf
 import cv2
-from mosaic import generateMosaic
+from .mosaic import generateMosaic
 
 
 def main(conffile,imfile):

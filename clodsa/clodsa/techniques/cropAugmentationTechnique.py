@@ -1,19 +1,22 @@
-from technique import AlteringTechnique
+from __future__ import absolute_import
+from __future__ import division
+from past.utils import old_div
+from .technique import PositionVariantTechnique
 import cv2
 
-class cropAugmentationTechnique(AlteringTechnique):
+class cropAugmentationTechnique(PositionVariantTechnique):
 
     # percentage is a value between 0 and 1
     # startFrom indicates the starting point of the cropping,
     # the possible values are TOPLEFT, TOPRIGHT, BOTTOMLEFT,
     # BOTTOMRIGHT, and CENTER
     def __init__(self,parameters):
-        AlteringTechnique.__init__(self, parameters)
-        if 'percentage' in parameters.keys():
+        PositionVariantTechnique.__init__(self, parameters)
+        if 'percentage' in list(parameters.keys()):
             self.percentage = float(parameters["percentage"])
         else:
             self.percentage = 0.9
-        if 'startFrom' in parameters.keys():
+        if 'startFrom' in list(parameters.keys()):
             self.startFrom = parameters["startFrom"]
         else:
             self.startFrom = 'TOPLEFT'
@@ -37,7 +40,7 @@ class cropAugmentationTechnique(AlteringTechnique):
         if self.startFrom == 'BOTTOMRIGHT':
             crop = image[w-newW:w, h - newH:h]
         if self.startFrom == 'CENTER':
-            crop = image[int(w/2 - newW/2):int(w/2 + newW/2), int(h/2 - newH/2):int(h/2 + newH/2)]
+            crop = image[int(old_div(w,2) - old_div(newW,2)):int(old_div(w,2) + old_div(newW,2)), int(old_div(h,2) - old_div(newH,2)):int(old_div(h,2) + old_div(newH,2))]
         return crop
 
 

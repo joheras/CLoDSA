@@ -1,20 +1,23 @@
+from __future__ import absolute_import
+from builtins import zip
+from builtins import object
 from mahotas.demos import image_path
 
-from iaugmentor import IAugmentor
+from .iaugmentor import IAugmentor
 from imutils import paths
 import os
 import cv2
 from sklearn.externals.joblib import Parallel, delayed
 import random
 import numpy as np
-from utils.aspectawarepreprocessor import AspectAwarePreprocessor
+from .utils.aspectawarepreprocessor import AspectAwarePreprocessor
 
 def readAndGenerateImageSegmentation(image,label,generators):
     newimage = image
     newlabel = label
     for (j, generator) in enumerate(generators):
         if (random.randint(0, 100) > 50):
-            newimage = generator.applyForSegmentation(newimage,newlabel)
+            newimage,newlabel = generator.applyForSegmentation(newimage,newlabel)
 
     return (newimage,newlabel)
 
@@ -33,7 +36,7 @@ def readAndGenerateImageSegmentation(image,label,generators):
 #    |- ...
 # where Folder/labels/image1.tiff is the annotation of the image Folder/images/image1.jpg.
 # Hence, both images must have the same size.
-class FolderKerasSemanticSegmentationAugmentor:
+class FolderKerasSemanticSegmentationAugmentor(object):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)

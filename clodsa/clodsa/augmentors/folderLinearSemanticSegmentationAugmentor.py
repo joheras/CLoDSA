@@ -1,6 +1,9 @@
+from __future__ import absolute_import
+from builtins import str
+from builtins import object
 from mahotas.demos import image_path
 
-from iaugmentor import IAugmentor
+from .iaugmentor import IAugmentor
 from imutils import paths
 import os
 import cv2
@@ -39,7 +42,7 @@ def readAndGenerateImageSegmentation(outputPath, generators, labelextension, i_a
 #    |- ...
 # where Folder/labels/image1.tiff is the annotation of the image Folder/images/image1.jpg.
 # Hence, both images must have the same size.
-class FolderLinearSemanticSegmentationAugmentor:
+class FolderLinearSemanticSegmentationAugmentor(object):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)

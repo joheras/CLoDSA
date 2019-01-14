@@ -1,12 +1,13 @@
-from technique import NonAlteringTechnique
+from __future__ import absolute_import
+from .technique import PositionInvariantTechnique
 import cv2
 import numpy as np
 
-class changeToLABAugmentationTechnique(NonAlteringTechnique):
+class changeToLABAugmentationTechnique(PositionInvariantTechnique):
 
 
     def __init__(self,parameters):
-        NonAlteringTechnique.__init__(self, parameters, False)
+        PositionInvariantTechnique.__init__(self, parameters, False)
 
 
     def apply(self, image):

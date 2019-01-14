@@ -1,8 +1,11 @@
-from technique import AlteringTechnique
+from __future__ import absolute_import
+from __future__ import division
+from past.utils import old_div
+from .technique import PositionVariantTechnique
 import cv2
 
 
-class resizeAugmentationTechnique(AlteringTechnique):
+class resizeAugmentationTechnique(PositionVariantTechnique):
 
     methods = {'INTER_NEAREST': cv2.INTER_NEAREST,
                'INTER_LINEAR': cv2.INTER_LINEAR,
@@ -13,12 +16,12 @@ class resizeAugmentationTechnique(AlteringTechnique):
     # valid methods for interpolation methods: INTER_AREA, INTER_CUBIC,
     # INTER_NEAREST, INTER_LINEAR, INTER_LANCZOS4
     def __init__(self, parameters):
-        AlteringTechnique.__init__(self, parameters)
-        if 'percentage' in parameters.keys():
+        PositionVariantTechnique.__init__(self, parameters)
+        if 'percentage' in list(parameters.keys()):
             self.percentage = float(parameters["percentage"])
         else:
             self.percentage = 1.5
-        if 'method' in parameters.keys():
+        if 'method' in list(parameters.keys()):
             method = parameters["method"]
         else:
             method = 'INTER_AREA'
@@ -42,14 +45,14 @@ class resizeAugmentationTechnique(AlteringTechnique):
         if width is None:
             # calculate the ratio of the height and construct the
             # dimensions
-            r = height / float(h)
+            r = old_div(height, float(h))
             dim = (int(w * r), height)
 
         # otherwise, the height is None
         else:
             # calculate the ratio of the width and construct the
             # dimensions
-            r = width / float(w)
+            r = old_div(width, float(w))
             dim = (width, int(h * r))
 
         # resize the image

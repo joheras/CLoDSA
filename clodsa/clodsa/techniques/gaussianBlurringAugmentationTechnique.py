@@ -1,13 +1,14 @@
-from technique import NonAlteringTechnique
+from __future__ import absolute_import
+from .technique import PositionInvariantTechnique
 import cv2
 import numpy as np
 
-class gausianBlurringAugmentationTechnique(NonAlteringTechnique):
+class gausianBlurringAugmentationTechnique(PositionInvariantTechnique):
 
     # Valid values for kernel are 3,5,7,9, and 11
     def __init__(self,parameters):
-        NonAlteringTechnique.__init__(self, parameters)
-        if 'kernel' in parameters.keys():
+        PositionInvariantTechnique.__init__(self, parameters)
+        if 'kernel' in list(parameters.keys()):
             self.kernel = int(parameters["kernel"])
         else:
             self.kernel = 3

@@ -1,8 +1,9 @@
-from augmentors.augmentorFactory import createAugmentor
-from augmentors.generator import Generator
-from techniques.techniqueFactory import createTechnique
+from __future__ import absolute_import
+from .augmentors.augmentorFactory import createAugmentor
+from .augmentors.generator import Generator
+from .techniques.techniqueFactory import createTechnique
 import argparse
-from utils.conf import Conf
+from .utils.conf import Conf
 
 
 def main(conf):

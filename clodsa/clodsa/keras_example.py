@@ -1,10 +1,11 @@
+from __future__ import absolute_import
 from keras.optimizers import SGD
 import argparse
-from utils.conf import Conf
-from augmentors.augmentorFactory import createAugmentor
-from augmentors.generator import Generator
-from techniques.techniqueFactory import createTechnique
-from utils.minivgg import MiniVGGNet
+from .utils.conf import Conf
+from .augmentors.augmentorFactory import createAugmentor
+from .augmentors.generator import Generator
+from .techniques.techniqueFactory import createTechnique
+from .utils.minivgg import MiniVGGNet
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-c", "--conf", required=True, help="path to configuration file")

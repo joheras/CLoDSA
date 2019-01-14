@@ -1,22 +1,23 @@
-from technique import NonAlteringTechnique
+from __future__ import absolute_import
+from .technique import PositionInvariantTechnique
 import cv2
 import numpy as np
 
-class bilateralBlurringAugmentationTechnique(NonAlteringTechnique):
+class bilateralBlurringAugmentationTechnique(PositionInvariantTechnique):
 
     # Examples for values of diameter, sigmaColor, and sigmaSpace are
     # (11,21,7), (11,41,21), (11,61,39).
     def __init__(self,parameters):
-        NonAlteringTechnique.__init__(self, parameters)
-        if 'diameter' in parameters.keys():
+        PositionInvariantTechnique.__init__(self, parameters)
+        if 'diameter' in list(parameters.keys()):
             self.diameter = int(parameters["diameter"])
         else:
             self.diameter = 11
-        if 'sigmaColor' in parameters.keys():
+        if 'sigmaColor' in list(parameters.keys()):
             self.sigmaColor = int(parameters["sigmaColor"])
         else:
             self.sigmaColor = 21
-        if 'sigmaSpace' in parameters.keys():
+        if 'sigmaSpace' in list(parameters.keys()):
             self.sigmaSpace = int(parameters["sigmaSpace"])
         else:
             self.sigmaSpace = 7

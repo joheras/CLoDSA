@@ -1,5 +1,6 @@
 import h5py
 import os
+import sys
 
 class HDF5DatasetWriterClassification:
 
@@ -29,7 +30,10 @@ class HDF5DatasetWriterClassification:
         self.buffer = {"data": [], "labels":[]}
 
     def storeClassLabels(self,classLabels):
-        dt = h5py.special_dtype(vlen=unicode)
+        if sys.version_info[0]<3:
+            dt = h5py.special_dtype(vlen=unicode)
+        else:
+            dt = h5py.special_dtype(vlen=str)
         labelSet = self.db.create_dataset("label_names",
                                           (len(classLabels),),dtype=dt)
         labelSet[:] = classLabels

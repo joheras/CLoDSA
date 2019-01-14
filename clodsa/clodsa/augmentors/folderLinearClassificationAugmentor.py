@@ -1,4 +1,7 @@
-from iaugmentor import IAugmentor
+from __future__ import absolute_import
+from builtins import str
+from builtins import object
+from .iaugmentor import IAugmentor
 from imutils import paths
 import os
 import cv2
@@ -11,8 +14,8 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
     label = imagePath.split(os.path.sep)[-2]
     name = imagePath.split(os.path.sep)[-1]
     for (j, generator) in enumerate(generators):
-        newimage = generator.applyForClassification(image)
-        cv2.imwrite(outputPath + label + "/" + str(i) + "_" + str(j) + "_" + name,
+        newimage,newlabel = generator.applyForClassification(image,label)
+        cv2.imwrite(outputPath + newlabel + "/" + str(i) + "_" + str(j) + "_" + name,
                     newimage)
 
 # This class serves to generate images for a classification
@@ -27,7 +30,7 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
 #    |- image1.jpg
 #    |- image2.jpg
 #    |- ...
-class FolderLinearClassificationAugmentor:
+class FolderLinearClassificationAugmentor(object):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)

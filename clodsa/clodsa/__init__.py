@@ -1,4 +1,5 @@
-import augment
+from __future__ import absolute_import
+from . import augment
 import sys, getopt
 
 def main(argv):

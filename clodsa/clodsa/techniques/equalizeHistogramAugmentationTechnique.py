@@ -1,11 +1,12 @@
-from technique import NonAlteringTechnique
+from __future__ import absolute_import
+from .technique import PositionInvariantTechnique
 import cv2
 
-class equalizeHistogramAugmentationTechnique(NonAlteringTechnique):
+class equalizeHistogramAugmentationTechnique(PositionInvariantTechnique):
 
 
     def __init__(self,parameters):
-        NonAlteringTechnique.__init__(self, parameters)
+        PositionInvariantTechnique.__init__(self, parameters)
 
     def apply(self, image):
         if len(image.shape) == 3:

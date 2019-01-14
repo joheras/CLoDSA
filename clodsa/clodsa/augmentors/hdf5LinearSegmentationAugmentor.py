@@ -1,11 +1,13 @@
-from iaugmentor import IAugmentor
+from __future__ import absolute_import
+from builtins import object
+from .iaugmentor import IAugmentor
 from sklearn.preprocessing import LabelEncoder
 from imutils import paths
 import os
 import cv2
 import progressbar
-from utils.aspectawarepreprocessor import AspectAwarePreprocessor
-from utils.hdf5datasetwriter import HDF5DatasetWriterSegmentation
+from .utils.aspectawarepreprocessor import AspectAwarePreprocessor
+from .utils.hdf5datasetwriter import HDF5DatasetWriterSegmentation
 
 # This class serves to generate images for a classification
 # problem where all the images are organized by folders
@@ -19,7 +21,7 @@ from utils.hdf5datasetwriter import HDF5DatasetWriterSegmentation
 #    |- image1.jpg
 #    |- image2.jpg
 #    |- ...
-class HDF5LinearSegmentationAugmentor:
+class HDF5LinearSegmentationAugmentor(object):
 
     # All images must have same width and height
     def __init__(self,inputPath,parameters):

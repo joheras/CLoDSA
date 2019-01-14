@@ -1,11 +1,14 @@
-from iaugmentor import IAugmentor
+from __future__ import absolute_import
+from builtins import zip
+from builtins import object
+from .iaugmentor import IAugmentor
 from sklearn.preprocessing import LabelEncoder
 from imutils import paths
 import os
 import cv2
 from sklearn.externals.joblib import Parallel, delayed
-from utils.aspectawarepreprocessor import AspectAwarePreprocessor
-from utils.hdf5datasetwriter import HDF5DatasetWriterClassification
+from .utils.aspectawarepreprocessor import AspectAwarePreprocessor
+from .utils.hdf5datasetwriter import HDF5DatasetWriterClassification
 import progressbar
 
 # This class serves to generate images for a classification
@@ -20,7 +23,7 @@ import progressbar
 #    |- image1.jpg
 #    |- image2.jpg
 #    |- ...
-class HDF5PowerClassificationAugmentor:
+class HDF5PowerClassificationAugmentor(object):
 
     # All images must have same width and height
     def __init__(self,inputPath,parameters):
@@ -74,9 +77,9 @@ class HDF5PowerClassificationAugmentor:
             for (j, generator) in enumerate(self.generators):
                 newimages = []
                 for (k,im) in enumerate(images):
-                    newimage = generator.applyForClassification(im)
+                    newimage,newlabel = generator.applyForClassification(im,label)
                     newimage = self.aw.preprocess(newimage)
-                    writer.add([newimage], [label])
+                    writer.add([newimage], [newlabel])
                     newimages.append(newimage)
                 images = newimages
 

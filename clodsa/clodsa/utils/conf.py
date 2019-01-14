@@ -1,7 +1,8 @@
 # import the necessary packages
+from builtins import object
 import commentjson as json
 
-class Conf:
+class Conf(object):
 	def __init__(self, confPath):
 		# load and store the configuration and update the object's dictionary
 		conf = json.loads(open(confPath).read())

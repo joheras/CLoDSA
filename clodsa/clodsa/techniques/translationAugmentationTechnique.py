@@ -1,16 +1,17 @@
-from technique import AlteringTechnique
+from __future__ import absolute_import
+from .technique import PositionVariantTechnique
 import cv2
 import numpy as np
 
-class translationAugmentationTechnique(AlteringTechnique):
+class translationAugmentationTechnique(PositionVariantTechnique):
 
     def __init__(self,parameters):
-        AlteringTechnique.__init__(self, parameters)
-        if 'x' in parameters.keys():
+        PositionVariantTechnique.__init__(self, parameters)
+        if 'x' in list(parameters.keys()):
             self.x = int(parameters["x"])
         else:
             self.x = 10
-        if 'y' in parameters.keys():
+        if 'y' in list(parameters.keys()):
             self.y = int(parameters["y"])
         else:
             self.y = 10

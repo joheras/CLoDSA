@@ -1,15 +1,18 @@
-from technique import AlteringTechnique
+from __future__ import absolute_import
+from __future__ import division
+from past.utils import old_div
+from .technique import PositionVariantTechnique
 import cv2
 import numpy as np
 import random
 
-class rotateAugmentationTechnique(AlteringTechnique):
+class rotateAugmentationTechnique(PositionVariantTechnique):
 
     # Valid angle is in the range [0,360), or it can also be a pair
     # indicating the range of angles
     def __init__(self,parameters):
-        AlteringTechnique.__init__(self, parameters)
-        if 'angle' in parameters.keys():
+        PositionVariantTechnique.__init__(self, parameters)
+        if 'angle' in list(parameters.keys()):
             angle = int(parameters["angle"])
         else:
             angle = random.randint(0,360)
@@ -39,8 +42,8 @@ class rotateAugmentationTechnique(AlteringTechnique):
         nH = int((h * cos) + (w * sin))
 
         # adjust the rotation matrix to take into account translation
-        M[0, 2] += (nW / 2) - cX
-        M[1, 2] += (nH / 2) - cY
+        M[0, 2] += (old_div(nW, 2)) - cX
+        M[1, 2] += (old_div(nH, 2)) - cY
 
         # perform the actual rotation and return the image
         return cv2.warpAffine(image, M, (nW, nH))

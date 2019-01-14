@@ -1,18 +1,19 @@
-from technique import AlteringTechnique
+from __future__ import absolute_import
+from .technique import PositionVariantTechnique
 import cv2
 import numpy as np
 from scipy.ndimage.interpolation import map_coordinates
 from scipy.ndimage.filters import gaussian_filter
 
-class elasticTransformAugmentationTechnique(AlteringTechnique):
+class elasticTransformAugmentationTechnique(PositionVariantTechnique):
 
     def __init__(self,parameters):
-        AlteringTechnique.__init__(self, parameters)
-        if 'alpha' in parameters.keys():
+        PositionVariantTechnique.__init__(self, parameters)
+        if 'alpha' in list(parameters.keys()):
             self.alpha = float(parameters["alpha"])
         else:
             self.alpha = 5
-        if 'sigma' in parameters.keys():
+        if 'sigma' in list(parameters.keys()):
             self.sigma = float(parameters["sigma"])
         else:
             self.sigma = 0.05

@@ -1,10 +1,15 @@
-from iaugmentor import IAugmentor
+from __future__ import absolute_import
+from __future__ import division
+from builtins import str
+from builtins import object
+from past.utils import old_div
+from .iaugmentor import IAugmentor
 from imutils import paths
 import os
 import cv2
 from sklearn.externals.joblib import Parallel, delayed
 import xml.etree.ElementTree as ET
-from utils import prettify
+from .utils import prettify
 
 
 
@@ -40,7 +45,7 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
             file = open(outputPath + "/" + str(i) + "_" + str(j) + "_" + name[0:name.rfind(".")]+".txt", "w")
             for box in newboxes:
                 (category, (x, y, wb, hb)) = box
-                file.write(category + " " + str(float(x+wb/2)/wI) + " " + str(float(y+hb/2)/hI) + " " + str(float(wb)/wI) + " " + str(float(hb)/hI)+ "\n")
+                file.write(category + " " + str(old_div(float(x+old_div(wb,2)),wI)) + " " + str(old_div(float(y+old_div(hb,2)),hI)) + " " + str(old_div(float(wb),wI)) + " " + str(old_div(float(hb),hI))+ "\n")
             file.close()
         else:
             file = open(outputPath + "/" + str(i) + "_" + str(j) + "_" + name[0:name.rfind(".")] + ".txt", "w")
@@ -60,7 +65,7 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
 # # |- ...
 # #
 #
-class yoloLinearDetectionAugmentor:
+class yoloLinearDetectionAugmentor(object):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)

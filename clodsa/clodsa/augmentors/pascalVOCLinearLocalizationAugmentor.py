@@ -1,10 +1,13 @@
-from iaugmentor import IAugmentor
+from __future__ import absolute_import
+from builtins import str
+from builtins import object
+from .iaugmentor import IAugmentor
 from imutils import paths
 import os
 import cv2
 from sklearn.externals.joblib import Parallel, delayed
 import xml.etree.ElementTree as ET
-from utils import prettify
+from .utils import prettify
 
 
 
@@ -96,7 +99,7 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
 # # |- ...
 # #
 #
-class PascalVOCLinearLocalizationAugmentor:
+class PascalVOCLinearLocalizationAugmentor(object):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)

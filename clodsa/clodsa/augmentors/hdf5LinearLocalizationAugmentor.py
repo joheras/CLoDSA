@@ -1,10 +1,12 @@
-from iaugmentor import IAugmentor
+from __future__ import absolute_import
+from builtins import object
+from .iaugmentor import IAugmentor
 from sklearn.preprocessing import LabelEncoder
 from imutils import paths
 import os
 import cv2
-from utils.aspectawarepreprocessor import AspectAwarePreprocessor
-from utils.hdf5datasetwriter import HDF5DatasetWriterClassification
+from .utils.aspectawarepreprocessor import AspectAwarePreprocessor
+from .utils.hdf5datasetwriter import HDF5DatasetWriterClassification
 import xml.etree.ElementTree as ET
 import progressbar
 # This class serves to generate images for a classification
@@ -19,7 +21,7 @@ import progressbar
 #    |- image1.jpg
 #    |- image2.jpg
 #    |- ...
-class HDF5LinearLocalizationAugmentor:
+class HDF5LinearLocalizationAugmentor(object):
 
     # All images must have same width and height
     def __init__(self,inputPath,parameters):

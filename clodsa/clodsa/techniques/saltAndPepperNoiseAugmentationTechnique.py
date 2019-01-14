@@ -1,17 +1,18 @@
-from technique import NonAlteringTechnique
+from __future__ import absolute_import
+from .technique import PositionInvariantTechnique
 import cv2
 import numpy as np
 
-class saltAndPepperNoiseAugmentationTechnique(NonAlteringTechnique):
+class saltAndPepperNoiseAugmentationTechnique(PositionInvariantTechnique):
 
 
     def __init__(self,parameters):
-        NonAlteringTechnique.__init__(self, parameters)
-        if 'low' in parameters.keys():
+        PositionInvariantTechnique.__init__(self, parameters)
+        if 'low' in list(parameters.keys()):
             self.low = float(parameters["low"])
         else:
             self.low = 0
-        if 'up' in parameters.keys():
+        if 'up' in list(parameters.keys()):
             self.up = float(parameters["up"])
         else:
             self.up = 25

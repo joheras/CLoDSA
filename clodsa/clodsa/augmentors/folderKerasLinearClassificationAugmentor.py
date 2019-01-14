@@ -1,6 +1,10 @@
-from iaugmentor import IAugmentor
+from __future__ import absolute_import
+from builtins import str
+from builtins import range
+from builtins import object
+from .iaugmentor import IAugmentor
 from imutils import paths
-from utils.aspectawarepreprocessor import AspectAwarePreprocessor
+from .utils.aspectawarepreprocessor import AspectAwarePreprocessor
 import os
 import cv2
 import numpy as np
@@ -8,13 +12,14 @@ import random
 from sklearn.preprocessing import LabelBinarizer
 
 
-def readAndGenerateImage(image, generators):
+def readAndGenerateImage(image,label, generators):
     newimage = image
+    newlabel = label
     for (j, generator) in enumerate(generators):
         if (random.randint(0,100)>50):
-            newimage = generator.applyForClassification(newimage)
+            newimage,newlabel = generator.applyForClassification(newimage,newlabel)
 
-    return newimage
+    return (newimage,newlabel)
 
 # This class serves to generate images for a classification
 # problem where all the images are organized by folders
@@ -28,7 +33,7 @@ def readAndGenerateImage(image, generators):
 #    |- image1.jpg
 #    |- image2.jpg
 #    |- ...
-class FolderKerasLinearClassificationAugmentor:
+class FolderKerasLinearClassificationAugmentor(object):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)
@@ -73,7 +78,9 @@ class FolderKerasLinearClassificationAugmentor:
                 imagPaths = self.imagePaths[i:i+self.batchSize]
                 labels = self.labels[i:i+self.batchSize]
                 images = [cv2.imread(imagePath) for imagePath in imagPaths]
-                images = [aap.preprocess(readAndGenerateImage(image,self.generators)) for image in images]
+                imagesLabels = [readAndGenerateImage(image,self.generators) for image in images]
+                labels = [imageLabel[1] for imageLabel in imagesLabels]
+                images = [aap.preprocess(imageLabel[0]) for imageLabel in imagesLabels]
                 for j in range(self.batchSize):
 
                     index = random.randint(0,len(images)-1)
