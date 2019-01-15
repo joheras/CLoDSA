@@ -77,7 +77,7 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
         if box is not None:
             cv2.imwrite(outputPath + "/" + str(i) + "_" + str(j) + "_" + name,
                         newimage)
-            (wI,hI) =image.shape[:2]
+            (hI,wI) =image.shape[:2]
             if(len(image.shape)==3):
                 d = 3
             else:

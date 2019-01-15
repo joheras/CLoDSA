@@ -28,7 +28,7 @@ class cropAugmentationTechnique(PositionVariantTechnique):
 
 
     def apply(self, image):
-        (w,h) = image.shape[:2]
+        (h,w) = image.shape[:2]
         newW = int(w*self.percentage)
         newH = int(h * self.percentage)
         if self.startFrom == 'TOPLEFT':
