@@ -4,9 +4,11 @@ CLoDSA is an open-source image augmentation library for object classification, l
 
 ## Notebooks (colab)
 
+* [Augmenting a dataset for instance segmentation](https://colab.research.google.com/github/joheras/CLoDSA/blob/master/notebooks/CLODSA_Instance_Segmentation.ipynb).
 * [Augmenting a dataset for semantic segmentation](https://colab.research.google.com/github/joheras/CLoDSA/blob/master/notebooks/CLODSA_Nuclei.ipynb).
 * [Augmenting a dataset for object detection](https://colab.research.google.com/github/joheras/CLoDSA/blob/master/notebooks/CLODSA_Plants.ipynb).
 * [Augmenting a dataset for image classification](https://colab.research.google.com/github/joheras/CLoDSA/blob/master/notebooks/CLODSA_Melanoma.ipynb).
+* [Augmenting a dataset for image classification modifying the class](https://colab.research.google.com/github/joheras/CLoDSA/blob/master/notebooks/CLODSA_left_right).
 
 ## Features
 
@@ -20,7 +22,7 @@ CLoDSA is an open-source image augmentation library for object classification, l
 
 ## Requirements and installation of the library
 
-The library uses Python 2.7, which must be installed. 
+The library works with Python 2.7 and 3.6, which must be installed. 
 
 The following packages must be installed:
 
