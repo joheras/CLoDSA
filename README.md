@@ -15,11 +15,11 @@ CLoDSA is an open-source image augmentation library for object classification, l
 ## Features
 
 * Several augmentation techniques are provided.
-* Augmentation techniques can be applied for object classification, localization, detection, and semantic segmentation.
+* Augmentation techniques can be applied for object classification, localization, detection, semantic segmentation, instance segmentation. Augmentation techniques can also be applied to videos. 
 * A Java wizard to configure the library.
 * Several input modes for reading the datasets.
 * Several output modes to generate the augmented dataset. 
-* It is possible to easily add new augmentation techniques and apply them for object classification, localization, detection, and semantic segmentation. 
+* It is possible to easily add new augmentation techniques and apply them for object classification, localization, detection, semantic segmentation, instance segmentation in both images and videos. 
 
 
 ## Requirements and installation of the library
