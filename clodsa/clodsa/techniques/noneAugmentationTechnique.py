@@ -10,4 +10,6 @@ class noneAugmentationTechnique(PositionInvariantTechnique):
 
 
     def apply(self, image):
-        return image.copy()
+        if image is not None:
+            return image.copy()
+        return None

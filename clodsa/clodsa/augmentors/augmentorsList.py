@@ -11,6 +11,8 @@ from .hdf5PowerSegmentationAugmentor import HDF5PowerSegmentationAugmentor
 from .pascalVOCLinearDetectionAugmentor import PascalVOCLinearDetectionAugmentor
 from .pascalVOCLinearLocalizationAugmentor import PascalVOCLinearLocalizationAugmentor
 from .yoloLinearDetectionAugmentor import yoloLinearDetectionAugmentor
+from .cocoLinearInstanceSegmentationAugmentor import COCOLinearInstanceSegmentationAugmentor
+from .folderVideoLinearClassificationAugmentor import FolderVideoLinearClassificationAugmentor
 
 # List of augmentors organized by problem, then annotation mode, then output mode, and
 # finally generation
@@ -72,4 +74,19 @@ Augmentors = {
             },
         },
     },
+    "instance_segmentation" : {
+        "coco": {
+            "coco": {
+                "linear": COCOLinearInstanceSegmentationAugmentor,
+            },
+        },
+    },
+
+   "videoclassification" : {
+        "folders": {
+            "folders": {
+                "linear" : FolderVideoLinearClassificationAugmentor,
+                },
+            },
+        },
 }
