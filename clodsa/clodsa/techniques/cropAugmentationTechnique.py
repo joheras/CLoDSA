@@ -32,15 +32,16 @@ class cropAugmentationTechnique(PositionVariantTechnique):
         newW = int(w*self.percentage)
         newH = int(h * self.percentage)
         if self.startFrom == 'TOPLEFT':
-            crop = image[0:newW,0:newH]
+            crop = image[0:newH,0:newW]
         if self.startFrom == 'BOTTOMLEFT':
-            crop = image[w-newW:w, 0:newH]
+            crop = image[h-newH:h, 0:newW]
         if self.startFrom == 'TOPRIGHT':
-            crop = image[0:newW,h-newH:h]
+            crop = image[0:newH,w-newW:w]
         if self.startFrom == 'BOTTOMRIGHT':
-            crop = image[w-newW:w, h - newH:h]
+            crop = image[h-newH:h, w - newW:w]
         if self.startFrom == 'CENTER':
-            crop = image[int(old_div(w,2) - old_div(newW,2)):int(old_div(w,2) + old_div(newW,2)), int(old_div(h,2) - old_div(newH,2)):int(old_div(h,2) + old_div(newH,2))]
+            crop = image[int(old_div(h,2) - old_div(newH,2)):int(old_div(h,2) + old_div(newH,2)),
+                   int(old_div(w,2) - old_div(newW,2)):int(old_div(w,2) + old_div(newW,2))]
         return crop
 
 

@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from builtins import object
 from .detection import detectBox,detectBoxes
 from ..techniques.technique import PositionVariantTechnique,PositionInvariantTechnique,DecoratorTechnique
+from sklearn.externals.joblib import Parallel, delayed
 
 
 class Generator(object):
@@ -37,5 +38,23 @@ class Generator(object):
                     self.technique.apply(imageLabel)]
         else:
             return [self.technique.apply(image), imageLabel]
+
+    def applyForInstanceSegmentation(self,image,maskLabels):
+        if (isinstance(self.technique.technique, PositionVariantTechnique)):
+            return [self.technique.apply(image),
+                    [(self.technique.apply(mask), self.technique.transform_label(label))
+                     for mask,label in maskLabels ]]
+        else:
+            return [self.technique.apply(image),
+                    [(mask, self.technique.transform_label(label))
+                     for mask, label in maskLabels]]
+
+    def applyForZStackClassification(self,listImages,label):
+        newlistImages = Parallel(n_jobs=-1)(
+            delayed(self.technique.apply)(image) for image in listImages)
+        return [newlistImages,self.technique.transform_label(label)]
+
+
+
 
 
