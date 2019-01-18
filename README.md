@@ -39,8 +39,7 @@ The following packages must be installed:
   * scikit_learn
   * progressbar2
   * OpenCV (i.e. `cv2` must be available in python). 
-
-When executing the installer, these packages will be automatically installed/upgraded where needed. This is not the case for OpenCV, which must be installed manually. A good tutorial explaining how to install OpenCV and Ubuntu is available at [Pyimagesearch](https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/).
+  * Tensorflow.
 
 Once the packages are available, `clodsa` can be installed using the following command
 
