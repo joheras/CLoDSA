@@ -1,7 +1,7 @@
 from __future__ import print_function
 from __future__ import absolute_import
 from .augmentors.augmentorFactory import createAugmentor
-from .augmentors.generator import Generator
+from .transformers.transformerFactory import transformerGenerator
 from .techniques.techniqueFactory import createTechnique
 import argparse
 from .utils.conf import Conf
@@ -35,9 +35,10 @@ def main(conffile,imfile):
 
 	# We apply the augmentation
 	images = []
+	transformer = transformerGenerator(problem)
 	for (technique,parameters) in augmentationTechniques:
 	    tech = createTechnique(technique,parameters)
-	    im = Generator(tech).applyForClassification(image)
+	    im = transformer(tech).transform(image)
 	    cv2.putText(im,technique,(10,10),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,255),1)
 	    images.append(im)
 

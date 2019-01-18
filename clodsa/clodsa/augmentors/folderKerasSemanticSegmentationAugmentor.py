@@ -12,12 +12,12 @@ import random
 import numpy as np
 from .utils.aspectawarepreprocessor import AspectAwarePreprocessor
 
-def readAndGenerateImageSegmentation(image,label,generators):
+def readAndGenerateImageSegmentation(image,label,transformers):
     newimage = image
     newlabel = label
-    for (j, generator) in enumerate(generators):
+    for (j, transformer) in enumerate(transformers):
         if (random.randint(0, 100) > 50):
-            newimage,newlabel = generator.applyForSegmentation(newimage,newlabel)
+            newimage,newlabel = transformer.transform(newimage,newlabel)
 
     return (newimage,newlabel)
 
@@ -36,7 +36,7 @@ def readAndGenerateImageSegmentation(image,label,generators):
 #    |- ...
 # where Folder/labels/image1.tiff is the annotation of the image Folder/images/image1.jpg.
 # Hence, both images must have the same size.
-class FolderKerasSemanticSegmentationAugmentor(object):
+class FolderKerasSemanticSegmentationAugmentor(IAugmentor):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)
@@ -44,7 +44,6 @@ class FolderKerasSemanticSegmentationAugmentor(object):
         self.imagesPath = inputPath+"images/"
         self.labelsPath = inputPath + "labels/"
         # output path represents the folder where the images will be stored
-        self.generators = []
         if parameters["labelsExtension"]:
             self.labelsExtension=parameters["labelsExtension"]
         else:
@@ -64,8 +63,6 @@ class FolderKerasSemanticSegmentationAugmentor(object):
             self.batchSize = 32
         self.readImagesAndAnnotations()
 
-    def addGenerator(self, generator):
-        self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
         self.imagePaths = list(paths.list_files(self.imagesPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
@@ -86,7 +83,7 @@ class FolderKerasSemanticSegmentationAugmentor(object):
                 labPaths = self.labelPaths[i:i+self.batchSize]
                 images = [aap.preprocess(cv2.imread(imagePath)) for imagePath in imagPaths]
                 labels = [aap.preprocess(cv2.imread(labelPath)) for labelPath in labPaths]
-                images_labels = [readAndGenerateImageSegmentation(image,label,self.generators) for (image,label) in zip(images,labels)]
+                images_labels = [readAndGenerateImageSegmentation(image,label,self.transformers) for (image,label) in zip(images,labels)]
                 images = [i[0] for i in images_labels]
                 labels = [i[1] for i in images_labels]
                 yield (images,labels)

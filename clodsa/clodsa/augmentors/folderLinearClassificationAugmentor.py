@@ -8,13 +8,13 @@ import cv2
 from sklearn.externals.joblib import Parallel, delayed
 
 # We need to define this function outside to work in parallel.
-def readAndGenerateImage(outputPath, generators, i_and_imagePath):
+def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
     (i, imagePath) = i_and_imagePath
     image = cv2.imread(imagePath)
     label = imagePath.split(os.path.sep)[-2]
     name = imagePath.split(os.path.sep)[-1]
-    for (j, generator) in enumerate(generators):
-        newimage,newlabel = generator.applyForClassification(image,label)
+    for (j, transformer) in enumerate(transformers):
+        newimage,newlabel = transformer.transform(image,label)
         cv2.imwrite(outputPath + newlabel + "/" + str(i) + "_" + str(j) + "_" + name,
                     newimage)
 
@@ -30,7 +30,7 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
 #    |- image1.jpg
 #    |- image2.jpg
 #    |- ...
-class FolderLinearClassificationAugmentor(object):
+class FolderLinearClassificationAugmentor(IAugmentor):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)
@@ -40,11 +40,6 @@ class FolderLinearClassificationAugmentor(object):
             self.outputPath = parameters["outputPath"]
         else:
             raise ValueError("You should provide an output path in the parameters")
-
-        self.generators = []
-
-    def addGenerator(self, generator):
-        self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
         self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
@@ -58,30 +53,5 @@ class FolderLinearClassificationAugmentor(object):
         self.readImagesAndAnnotations()
         self.createOutputDirs()
         len1 = len(self.imagePaths)
-        Parallel(n_jobs=-1)(delayed(readAndGenerateImage)(self.outputPath,self.generators,x) for x in enumerate(self.imagePaths))
+        Parallel(n_jobs=-1)(delayed(readAndGenerateImage)(self.outputPath,self.transformers,x) for x in enumerate(self.imagePaths))
 
-
-# # Example
-# augmentor = FolderLinearClassificationAugmentor(
-#     "/home/joheras/datasets/cats_and_dogs_small/train/",
-#     "/home/joheras/datasets/cats_and_dogs_small/data-augmented-parallel/"
-# )
-#
-# from techniques.averageBlurringAugmentationTechnique import averageBlurringAugmentationTechnique
-# from techniques.bilateralBlurringAugmentationTechnique import bilateralBlurringAugmentationTechnique
-# from techniques.gaussianNoiseAugmentationTechnique import gaussianNoiseAugmentationTechnique
-# from techniques.rotateAugmentationTechnique import rotateAugmentationTechnique
-# from techniques.flipAugmentationTechnique import flipAugmentationTechnique
-# from techniques.noneAugmentationTechnique import noneAugmentationTechnique
-# from generator import Generator
-# import time
-# augmentor.addGenerator(Generator(noneAugmentationTechnique()))
-# augmentor.addGenerator(Generator(averageBlurringAugmentationTechnique()))
-# augmentor.addGenerator(Generator(bilateralBlurringAugmentationTechnique()))
-# augmentor.addGenerator(Generator(gaussianNoiseAugmentationTechnique()))
-# augmentor.addGenerator(Generator(rotateAugmentationTechnique()))
-# augmentor.addGenerator(Generator(flipAugmentationTechnique()))
-# start = time.time()
-# augmentor.applyAugmentation()
-# end = time.time()
-# print(end - start)

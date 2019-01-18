@@ -21,7 +21,7 @@ from .utils.hdf5datasetwriter import HDF5DatasetWriterSegmentation
 #    |- image1.jpg
 #    |- image2.jpg
 #    |- ...
-class HDF5LinearSegmentationAugmentor(object):
+class HDF5LinearSegmentationAugmentor(IAugmentor):
 
     # All images must have same width and height
     def __init__(self,inputPath,parameters):
@@ -35,7 +35,6 @@ class HDF5LinearSegmentationAugmentor(object):
         else:
             raise ValueError("You should provide an output path in the parameters")
 
-        self.generators = []
         if parameters["labelsExtension"]:
             self.labelsExtension = parameters["labelsExtension"]
         else:
@@ -50,8 +49,7 @@ class HDF5LinearSegmentationAugmentor(object):
             raise ValueError("You should provide a height in the parameters")
         self.aw = AspectAwarePreprocessor(self.width,self.height)
 
-    def addGenerator(self, generator):
-        self.generators.append(generator)
+
 
     def readImagesAndAnnotations(self):
         self.imagePaths = list(
@@ -68,7 +66,7 @@ class HDF5LinearSegmentationAugmentor(object):
 
         pbar = progressbar.ProgressBar(maxval=len(self.imagePaths),
                                    widgets=widgets).start()
-        writer = HDF5DatasetWriterSegmentation((len(self.imagePaths)*len(self.generators),self.width,self.height,3),
+        writer = HDF5DatasetWriterSegmentation((len(self.imagePaths)*len(self.transformers),self.width,self.height,3),
                                    self.outputPath)
 
         for i_and_imagePath in enumerate(self.imagePaths):
@@ -80,37 +78,13 @@ class HDF5LinearSegmentationAugmentor(object):
                                                                                    0:name.rfind(".")] + self.labelsExtension
             label = cv2.imread(labelPath)
             label = self.aw.preprocess(label)
-            for (j, generator) in enumerate(self.generators):
-                (newimage, newlabel) = generator.applyForSegmentation(image, label)
+            for (j, transformer) in enumerate(self.transformers):
+                (newimage, newlabel) = transformer.transform(image, label)
                 writer.add([newimage],[newlabel])
             pbar.update(i)
         writer.close()
         pbar.finish()
 
 
-# Example
-# augmentor = HDF5LinearSegmentationAugmentor(
-#     "/home/joheras/pythonprojects/ssai-cnn/maps/mass_buildings/test/",
-#     "/home/joheras/pythonprojects/ssai-cnn/maps/mass_buildings/maps.hdf5",
-#     224,224,".tif"
-# )
-#
-# from techniques.averageBlurringAugmentationTechnique import averageBlurringAugmentationTechnique
-# from techniques.bilateralBlurringAugmentationTechnique import bilateralBlurringAugmentationTechnique
-# from techniques.gaussianNoiseAugmentationTechnique import gaussianNoiseAugmentationTechnique
-# from techniques.rotateAugmentationTechnique import rotateAugmentationTechnique
-# from techniques.flipAugmentationTechnique import flipAugmentationTechnique
-# from techniques.noneAugmentationTechnique import noneAugmentationTechnique
-# from generator import Generator
-# import time
-# augmentor.addGenerator(Generator(noneAugmentationTechnique()))
-# augmentor.addGenerator(Generator(averageBlurringAugmentationTechnique()))
-# augmentor.addGenerator(Generator(bilateralBlurringAugmentationTechnique()))
-# augmentor.addGenerator(Generator(gaussianNoiseAugmentationTechnique()))
-# augmentor.addGenerator(Generator(rotateAugmentationTechnique()))
-# augmentor.addGenerator(Generator(flipAugmentationTechnique()))
-# start = time.time()
-# augmentor.applyAugmentation()
-# end = time.time()
-# print(end - start)
+
 

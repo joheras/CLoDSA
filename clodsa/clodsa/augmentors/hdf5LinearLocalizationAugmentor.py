@@ -21,7 +21,7 @@ import progressbar
 #    |- image1.jpg
 #    |- image2.jpg
 #    |- ...
-class HDF5LinearLocalizationAugmentor(object):
+class HDF5LinearLocalizationAugmentor(IAugmentor):
 
     # All images must have same width and height
     def __init__(self,inputPath,parameters):
@@ -34,7 +34,7 @@ class HDF5LinearLocalizationAugmentor(object):
         else:
             raise ValueError("You should provide an output path in the parameters")
 
-        self.generators = []
+
         if parameters["width"]:
             self.width = parameters["width"]
         else:
@@ -45,8 +45,7 @@ class HDF5LinearLocalizationAugmentor(object):
             raise ValueError("You should provide a height in the parameters")
         self.aw = AspectAwarePreprocessor(self.width,self.height)
 
-    def addGenerator(self, generator):
-        self.generators.append(generator)
+
 
     def readImagesAndAnnotations(self):
         self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
@@ -55,7 +54,7 @@ class HDF5LinearLocalizationAugmentor(object):
     def applyAugmentation(self):
         self.readImagesAndAnnotations()
         le = LabelEncoder()
-        writer = HDF5DatasetWriterClassification((len(self.imagePaths)*len(self.generators),self.width,self.height,3),
+        writer = HDF5DatasetWriterClassification((len(self.imagePaths)*len(self.transformers),self.width,self.height,3),
                                    self.outputPath)
         # We need to define this function outside to work in parallel.
         writer.storeClassLabels(le.classes_)
@@ -82,8 +81,8 @@ class HDF5LinearLocalizationAugmentor(object):
             w = int(bndbox.find('ymax').text) - y
             h = int(bndbox.find('xmax').text) - x
 
-            for (j, generator) in enumerate(self.generators):
-                (newimage, box) = generator.applyForLocalization(image, (category, (x, y, w, h)))
+            for (j, transformer) in enumerate(self.transformers):
+                (newimage, box) = transformer.transform(image, (category, (x, y, w, h)))
                 writer.add([newimage],[0,box[1][0],box[1][1],box[1][2],box[1][3]])
             pbar.update(i)
         pbar.finish()

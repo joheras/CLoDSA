@@ -54,7 +54,7 @@ def generateXML(filename,outputPath,w,h,d,boxes):
     return prettify(top)
 
 #
-def readAndGenerateImage(outputPath, generators, i_and_imagePath):
+def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
     (i, imagePath) = i_and_imagePath
     image = cv2.imread(imagePath)
     name = imagePath.split(os.path.sep)[-1]
@@ -72,8 +72,8 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
     h = int(bndbox.find('ymax').text)-y
     w = int(bndbox.find('xmax').text) - x
 
-    for (j, generator) in enumerate(generators):
-        (newimage, box) = generator.applyForLocalization(image, (category, (x, y, w, h)))
+    for (j, transformer) in enumerate(transformers):
+        (newimage, box) = transformer.transform(image, (category, (x, y, w, h)))
         if box is not None:
             cv2.imwrite(outputPath + "/" + str(i) + "_" + str(j) + "_" + name,
                         newimage)
@@ -99,7 +99,7 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
 # # |- ...
 # #
 #
-class PascalVOCLinearLocalizationAugmentor(object):
+class PascalVOCLinearLocalizationAugmentor(IAugmentor):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)
@@ -110,10 +110,6 @@ class PascalVOCLinearLocalizationAugmentor(object):
         else:
             raise ValueError("You should provide an output path in the parameters")
 
-        self.generators = []
-
-    def addGenerator(self, generator):
-        self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
         self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
@@ -124,5 +120,5 @@ class PascalVOCLinearLocalizationAugmentor(object):
     def applyAugmentation(self):
         self.readImagesAndAnnotations()
         #[readAndGenerateImage(self.outputPath, self.generators, x) for x in enumerate(self.imagePaths)]
-        Parallel(n_jobs=-1)(delayed(readAndGenerateImage)(self.outputPath,self.generators,x) for x in enumerate(self.imagePaths))
+        Parallel(n_jobs=-1)(delayed(readAndGenerateImage)(self.outputPath,self.transformers,x) for x in enumerate(self.imagePaths))
 

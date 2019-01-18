@@ -29,16 +29,3 @@ class PositionInvariantTechnique(with_metaclass(ABCMeta, Technique)):
     def apply(self, image):
         raise NotImplementedError
 
-class DecoratorTechnique(Technique):
-
-    def __init__(self, technique,dictLabels=None):
-        self.technique=technique
-        self.dictLabels = dictLabels
-
-    def apply(self,image):
-        return self.technique.apply(image)
-
-    def transform_label(self,label):
-        if (self.dictLabels is not None) and (label in self.dictLabels.keys()):
-            return self.dictLabels[label]
-        return label

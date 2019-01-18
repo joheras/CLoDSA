@@ -54,7 +54,7 @@ def generateXML(filename,outputPath,w,h,d,boxes):
     return prettify(top)
 
 #
-def readAndGenerateImage(outputPath, generators, i_and_imagePath):
+def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
 
     (i, imagePath) = i_and_imagePath
     image = cv2.imread(imagePath)
@@ -74,8 +74,8 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
         h = int(bndbox.find('ymax').text)-y
         w = int(bndbox.find('xmax').text) - x
         boxes.append((category, (x, y, w, h)))
-    for (j, generator) in enumerate(generators):
-        (newimage, newboxes) = generator.applyForDetection(image, boxes)
+    for (j, transformer) in enumerate(transformers):
+        (newimage, newboxes) = transformer.transform(image, boxes)
 
         if newboxes is not None:
             cv2.imwrite(outputPath + "/" + str(i) + "_" + str(j) + "_" + name,
@@ -103,7 +103,7 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
 # # |- ...
 # #
 #
-class PascalVOCLinearDetectionAugmentor(object):
+class PascalVOCLinearDetectionAugmentor(IAugmentor):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)
@@ -114,10 +114,6 @@ class PascalVOCLinearDetectionAugmentor(object):
         else:
             raise ValueError("You should provide an output path in the parameters")
 
-        self.generators = []
-
-    def addGenerator(self, generator):
-        self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
         self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
@@ -127,31 +123,5 @@ class PascalVOCLinearDetectionAugmentor(object):
 
     def applyAugmentation(self):
         self.readImagesAndAnnotations()
-        Parallel(n_jobs=-1)(delayed(readAndGenerateImage)(self.outputPath,self.generators,x) for x in enumerate(self.imagePaths))
+        Parallel(n_jobs=-1)(delayed(readAndGenerateImage)(self.outputPath,self.transformers,x) for x in enumerate(self.imagePaths))
 
-
-#
-# # Example
-# augmentor = PascalVOCLinearDetectionAugmentor(
-#     "/home/joheras/datasets/violines/",
-#     "/home/joheras/datasets/data-augmented-violines/"
-# )
-#
-# from techniques.averageBlurringAugmentationTechnique import averageBlurringAugmentationTechnique
-# from techniques.bilateralBlurringAugmentationTechnique import bilateralBlurringAugmentationTechnique
-# from techniques.gaussianNoiseAugmentationTechnique import gaussianNoiseAugmentationTechnique
-# from techniques.rotateAugmentationTechnique import rotateAugmentationTechnique
-# from techniques.flipAugmentationTechnique import flipAugmentationTechnique
-# from techniques.noneAugmentationTechnique import noneAugmentationTechnique
-# from generator import Generator
-# import time
-# augmentor.addGenerator(Generator(noneAugmentationTechnique()))
-# augmentor.addGenerator(Generator(averageBlurringAugmentationTechnique()))
-# augmentor.addGenerator(Generator(bilateralBlurringAugmentationTechnique()))
-# augmentor.addGenerator(Generator(gaussianNoiseAugmentationTechnique()))
-# augmentor.addGenerator(Generator(rotateAugmentationTechnique()))
-# augmentor.addGenerator(Generator(flipAugmentationTechnique()))
-# start = time.time()
-# augmentor.applyAugmentation()
-# end = time.time()
-# print(end - start)

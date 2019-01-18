@@ -11,7 +11,7 @@ from sklearn.externals.joblib import Parallel, delayed
 import imutils
 
 
-def readAndGenerateInstanceSegmentation(outputPath, generators, inputPath, imageInfo, annotationsInfo):
+def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, imageInfo, annotationsInfo):
     name = imageInfo[0]
     imagePath = inputPath + "/" + name
     (w, h) = imageInfo[1]
@@ -26,8 +26,8 @@ def readAndGenerateInstanceSegmentation(outputPath, generators, inputPath, image
         maskLabels.append((mask, c))
 
     allNewImagesResult = []
-    for (j, generator) in enumerate(generators):
-        (newimage, newmasklabels) = generator.applyForInstanceSegmentation(image, maskLabels)
+    for (j, transformer) in enumerate(transformers):
+        (newimage, newmasklabels) = transformer.transform(image, maskLabels)
 
         cv2.imwrite(outputPath + str(j) + "_" + name, newimage)
         newSegmentations = []
@@ -50,7 +50,7 @@ def readAndGenerateInstanceSegmentation(outputPath, generators, inputPath, image
 # images and there is a json file with the annotations of the images
 # using the COCO format called annotation.json
 
-class COCOLinearInstanceSegmentationAugmentor(object):
+class COCOLinearInstanceSegmentationAugmentor(IAugmentor):
 
     def __init__(self, inputPath, parameters):
         IAugmentor.__init__(self)
@@ -61,10 +61,7 @@ class COCOLinearInstanceSegmentationAugmentor(object):
             self.outputPath = parameters["outputPath"]
         else:
             raise ValueError("You should provide an output path in the parameters")
-        self.generators = []
 
-    def addGenerator(self, generator):
-        self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
         (self.info, self.licenses, self.categories, self.dictImages, self.dictAnnotations) \
@@ -74,7 +71,7 @@ class COCOLinearInstanceSegmentationAugmentor(object):
         self.readImagesAndAnnotations()
 
         newannotations = Parallel(n_jobs=-1)(delayed(readAndGenerateInstanceSegmentation)
-                                             (self.outputPath, self.generators, self.imagesPath, self.dictImages[x],
+                                             (self.outputPath, self.transformers, self.imagesPath, self.dictImages[x],
                                               self.dictAnnotations[x])
                                              for x in self.dictImages.keys())
 

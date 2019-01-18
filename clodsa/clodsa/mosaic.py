@@ -1,13 +1,11 @@
 from __future__ import division
 from past.utils import old_div
-import cv2
 import numpy as np
 import math
 
 
 def generateMosaic (images):
 
-    imagemosaic = []
     maxheight = max([i.shape[0] for i in images])
     maxwidth = max([i.shape[1] for i in images])
 

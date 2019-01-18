@@ -8,7 +8,7 @@ import cv2
 from sklearn.externals.joblib import Parallel, delayed
 
 # We need to define this function outside to work in parallel.
-def readAndGenerateVideo(outputPath, generators, i_and_videoPath):
+def readAndGenerateVideo(outputPath, transformers, i_and_videoPath):
     (i, videoPath) = i_and_videoPath
 
     vidcap = cv2.VideoCapture(videoPath)
@@ -24,8 +24,8 @@ def readAndGenerateVideo(outputPath, generators, i_and_videoPath):
 
     label = videoPath.split(os.path.sep)[-2]
     name = videoPath.split(os.path.sep)[-1]
-    for (j, generator) in enumerate(generators):
-        newListImages,newlabel = generator.applyForZStackClassification(listImages,label)
+    for (j, transformer) in enumerate(transformers):
+        newListImages,newlabel = transformer.transform(listImages,label)
 
         out = cv2.VideoWriter(outputPath + newlabel + "/" + str(i) + "_" + str(j) + "_" + name,
                           cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), fps, (w, h))
@@ -47,7 +47,7 @@ def readAndGenerateVideo(outputPath, generators, i_and_videoPath):
 #    |- video1.mp4
 #    |- video2.mp4
 #    |- ...
-class FolderVideoLinearClassificationAugmentor(object):
+class FolderVideoLinearClassificationAugmentor(IAugmentor):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)
@@ -58,12 +58,10 @@ class FolderVideoLinearClassificationAugmentor(object):
         else:
             raise ValueError("You should provide an output path in the parameters")
 
-        self.generators = []
 
-    def addGenerator(self, generator):
-        self.generators.append(generator)
 
-    def readVideosAndAnnotations(self):
+
+    def readImagesAndAnnotations(self):
         self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".avi", ".mp4")))
 
     def createOutputDirs(self):
@@ -72,9 +70,9 @@ class FolderVideoLinearClassificationAugmentor(object):
             os.makedirs(self.outputPath + dir + "/")
 
     def applyAugmentation(self):
-        self.readVideosAndAnnotations()
+        self.readImagesAndAnnotations()
         self.createOutputDirs()
 
         #[readAndGenerateVideo(self.outputPath,self.generators,x) for x in enumerate(self.imagePaths)]
-        Parallel(n_jobs=-1)(delayed(readAndGenerateVideo)(self.outputPath,self.generators,x) for x in enumerate(self.imagePaths))
+        Parallel(n_jobs=-1)(delayed(readAndGenerateVideo)(self.outputPath,self.transformers,x) for x in enumerate(self.imagePaths))
 

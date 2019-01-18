@@ -8,12 +8,10 @@ from imutils import paths
 import os
 import cv2
 from sklearn.externals.joblib import Parallel, delayed
-import xml.etree.ElementTree as ET
-from .utils import prettify
 
 
 
-def readAndGenerateImage(outputPath, generators, i_and_imagePath):
+def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
 
     (i, imagePath) = i_and_imagePath
     image = cv2.imread(imagePath)
@@ -33,8 +31,8 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
             h = int(float(components[4])*hI)
             w = int(float(components[3])*wI)
             boxes.append((category, (x, y, w, h)))
-    for (j, generator) in enumerate(generators):
-        (newimage, newboxes) = generator.applyForDetection(image, boxes)
+    for (j, transformer) in enumerate(transformers):
+        (newimage, newboxes) = transformer.transform(image, boxes)
         (hI, wI) = newimage.shape[:2]
 
         if newboxes is not None:
@@ -65,7 +63,7 @@ def readAndGenerateImage(outputPath, generators, i_and_imagePath):
 # # |- ...
 # #
 #
-class yoloLinearDetectionAugmentor(object):
+class yoloLinearDetectionAugmentor(IAugmentor):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)
@@ -76,10 +74,6 @@ class yoloLinearDetectionAugmentor(object):
         else:
             raise ValueError("You should provide an output path in the parameters")
 
-        self.generators = []
-
-    def addGenerator(self, generator):
-        self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
         self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".jpg", ".jpeg")))
@@ -89,7 +83,7 @@ class yoloLinearDetectionAugmentor(object):
 
     def applyAugmentation(self):
         self.readImagesAndAnnotations()
-        Parallel(n_jobs=-1)(delayed(readAndGenerateImage)(self.outputPath,self.generators,x) for x in enumerate(self.imagePaths))
+        Parallel(n_jobs=-1)(delayed(readAndGenerateImage)(self.outputPath,self.transformers,x) for x in enumerate(self.imagePaths))
 
 
 #

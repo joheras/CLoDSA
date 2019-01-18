@@ -23,7 +23,7 @@ import progressbar
 #    |- image1.jpg
 #    |- image2.jpg
 #    |- ...
-class HDF5PowerClassificationAugmentor(object):
+class HDF5PowerClassificationAugmentor(IAugmentor):
 
     # All images must have same width and height
     def __init__(self,inputPath,parameters):
@@ -35,7 +35,6 @@ class HDF5PowerClassificationAugmentor(object):
         else:
             raise ValueError("You should provide an output path in the parameters")
 
-        self.generators = []
         if parameters["width"]:
             self.width = parameters["width"]
         else:
@@ -47,8 +46,6 @@ class HDF5PowerClassificationAugmentor(object):
 
         self.aw = AspectAwarePreprocessor(self.width, self.height)
 
-    def addGenerator(self, generator):
-        self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
         self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
@@ -59,7 +56,7 @@ class HDF5PowerClassificationAugmentor(object):
         le = LabelEncoder()
         labels = [p.split(os.path.sep)[-2] for p in self.imagePaths]
         labels = le.fit_transform(labels)
-        writer = HDF5DatasetWriterClassification((len(self.imagePaths)*(2**(len(self.generators)-1)),self.width,self.height,3),
+        writer = HDF5DatasetWriterClassification((len(self.imagePaths)*(2**(len(self.transformers)-1)),self.width,self.height,3),
                                    self.outputPath)
         # We need to define this function outside to work in parallel.
         writer.storeClassLabels(le.classes_)
@@ -74,10 +71,10 @@ class HDF5PowerClassificationAugmentor(object):
 
             images = [image]
 
-            for (j, generator) in enumerate(self.generators):
+            for (j, transformer) in enumerate(self.transformers):
                 newimages = []
                 for (k,im) in enumerate(images):
-                    newimage,newlabel = generator.applyForClassification(im,label)
+                    newimage,newlabel = transformer.transform(im,label)
                     newimage = self.aw.preprocess(newimage)
                     writer.add([newimage], [newlabel])
                     newimages.append(newimage)

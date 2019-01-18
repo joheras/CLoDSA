@@ -82,9 +82,9 @@ Augmentors = {
         },
     },
 
-   "videoclassification" : {
-        "folders": {
-            "folders": {
+   "stackclassification" : {
+        "videofolders": {
+            "videofolders": {
                 "linear" : FolderVideoLinearClassificationAugmentor,
                 },
             },

@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 from .augmentors.augmentorFactory import createAugmentor
-from .augmentors.generator import Generator
+from .transformers.transformerFactory import transformerGenerator
 from .techniques.techniqueFactory import createTechnique
 import argparse
 from .utils.conf import Conf
@@ -31,8 +31,10 @@ def main(conf):
 	techniques = [createTechnique(technique,parameters) for (technique,parameters) in
 		      augmentationTechniques]
 
+	transformer = transformerGenerator(problem)
+
 	for technique in techniques:
-	    augmentor.addGenerator(Generator(technique))
+	    augmentor.addTransformer(transformer(technique))
 
 	# Finally, we apply the augmentation
 	augmentor.applyAugmentation()

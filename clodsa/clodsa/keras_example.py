@@ -3,7 +3,7 @@ from keras.optimizers import SGD
 import argparse
 from .utils.conf import Conf
 from .augmentors.augmentorFactory import createAugmentor
-from .augmentors.generator import Generator
+from .transformers.transformerFactory import transformerGenerator
 from .techniques.techniqueFactory import createTechnique
 from .utils.minivgg import MiniVGGNet
 
@@ -33,8 +33,10 @@ augmentor = createAugmentor(problem,annotationMode,outputMode,generationMode,inp
 techniques = [createTechnique(technique,param) for (technique,param) in
               augmentationTechniques]
 
+transformer = transformerGenerator(problem)
+
 for technique in techniques:
-    augmentor.addGenerator(Generator(technique))
+    augmentor.addTransformer(transformer(technique))
 
 
 # Definition of the model

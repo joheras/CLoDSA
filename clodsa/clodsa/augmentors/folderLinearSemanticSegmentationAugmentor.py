@@ -10,7 +10,7 @@ import cv2
 from sklearn.externals.joblib import Parallel, delayed
 
 
-def readAndGenerateImageSegmentation(outputPath, generators, labelextension, i_and_imagePath):
+def readAndGenerateImageSegmentation(outputPath, transformers, labelextension, i_and_imagePath):
     (i, imagePath) = i_and_imagePath
     image = cv2.imread(imagePath)
     name = imagePath.split(os.path.sep)[-1]
@@ -19,8 +19,8 @@ def readAndGenerateImageSegmentation(outputPath, generators, labelextension, i_a
     label = cv2.imread(labelPath)
 
 
-    for (j, generator) in enumerate(generators):
-        (newimage,newlabel) = generator.applyForSegmentation(image,label)
+    for (j, transformer) in enumerate(transformers):
+        (newimage,newlabel) = transformer.transform(image,label)
 
         cv2.imwrite(outputPath +  "images/" + str(i) + "_" + str(j) + "_" + name,
                     newimage)
@@ -42,7 +42,7 @@ def readAndGenerateImageSegmentation(outputPath, generators, labelextension, i_a
 #    |- ...
 # where Folder/labels/image1.tiff is the annotation of the image Folder/images/image1.jpg.
 # Hence, both images must have the same size.
-class FolderLinearSemanticSegmentationAugmentor(object):
+class FolderLinearSemanticSegmentationAugmentor(IAugmentor):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)
@@ -58,14 +58,10 @@ class FolderLinearSemanticSegmentationAugmentor(object):
             self.labelsExtension = parameters["labelsExtension"]
         else:
             self.labelsExtension = ".tiff"
-        self.generators = []
         if not os.path.exists(self.outputPath + "images/"):
             os.makedirs(self.outputPath + "images/")
         if not os.path.exists(self.outputPath + "labels/"):
             os.makedirs(self.outputPath + "labels/")
-
-    def addGenerator(self, generator):
-        self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
 
@@ -79,7 +75,7 @@ class FolderLinearSemanticSegmentationAugmentor(object):
     def applyAugmentation(self):
         self.readImagesAndAnnotations()
         Parallel(n_jobs=-1)(delayed(readAndGenerateImageSegmentation)
-                            (self.outputPath,self.generators,self.labelsExtension,x)
+                            (self.outputPath,self.transformers,self.labelsExtension,x)
                             for x in enumerate(self.imagePaths))
 
 

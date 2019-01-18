@@ -12,12 +12,12 @@ import random
 from sklearn.preprocessing import LabelBinarizer
 
 
-def readAndGenerateImage(image,label, generators):
+def readAndGenerateImage(image,label, transformers):
     newimage = image
     newlabel = label
-    for (j, generator) in enumerate(generators):
+    for (j, transformer) in enumerate(transformers):
         if (random.randint(0,100)>50):
-            newimage,newlabel = generator.applyForClassification(newimage,newlabel)
+            newimage,newlabel = transformer.transform(newimage,newlabel)
 
     return (newimage,newlabel)
 
@@ -33,7 +33,7 @@ def readAndGenerateImage(image,label, generators):
 #    |- image1.jpg
 #    |- image2.jpg
 #    |- ...
-class FolderKerasLinearClassificationAugmentor(object):
+class FolderKerasLinearClassificationAugmentor(IAugmentor):
 
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)
@@ -51,11 +51,8 @@ class FolderKerasLinearClassificationAugmentor(object):
             self.height = parameters["height"]
         else:
             self.height = 64
-        self.generators = []
         self.readImagesAndAnnotations()
 
-    def addGenerator(self, generator):
-        self.generators.append(generator)
 
     def readImagesAndAnnotations(self):
         self.imagePaths = list(paths.list_files(self.inputPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
@@ -78,7 +75,7 @@ class FolderKerasLinearClassificationAugmentor(object):
                 imagPaths = self.imagePaths[i:i+self.batchSize]
                 labels = self.labels[i:i+self.batchSize]
                 images = [cv2.imread(imagePath) for imagePath in imagPaths]
-                imagesLabels = [readAndGenerateImage(image,self.generators) for image in images]
+                imagesLabels = [readAndGenerateImage(image,self.transformers) for image in images]
                 labels = [imageLabel[1] for imageLabel in imagesLabels]
                 images = [aap.preprocess(imageLabel[0]) for imageLabel in imagesLabels]
                 for j in range(self.batchSize):
