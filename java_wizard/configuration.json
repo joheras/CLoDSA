@@ -55,6 +55,26 @@
 
             }
         },
+        "instance_segmentation": {
+            "coco": {
+                "coco": {
+                    "linear": {
+                        "outputPath": ["path","Path where the images will be stored"]
+                    }
+                }
+
+            }
+        },
+        "stackclassification": {
+            "videofolders": {
+                "videofolders": {
+                    "linear": {
+                        "outputPath": ["path","Path where the images will be stored"]
+                    }
+                }
+
+            }
+        },
         "semantic_segmentation": {
             "folders": {
                 "folders": {
