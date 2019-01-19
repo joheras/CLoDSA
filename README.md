@@ -7,6 +7,7 @@ CLoDSA is an open-source image augmentation library for object classification, l
 * [Augmenting a dataset for instance segmentation](https://colab.research.google.com/github/joheras/CLoDSA/blob/master/notebooks/CLODSA_Instance_Segmentation.ipynb).
 * [Augmenting a dataset for semantic segmentation](https://colab.research.google.com/github/joheras/CLoDSA/blob/master/notebooks/CLODSA_Nuclei.ipynb).
 * [Augmenting a dataset for object detection](https://colab.research.google.com/github/joheras/CLoDSA/blob/master/notebooks/CLODSA_Plants.ipynb).
+* [Augmenting a dataset for object detection using YOLO format](https://colab.research.google.com/github/joheras/CLoDSA/blob/master/notebooks/CLODSA_YOLO.ipynb).
 * [Augmenting a dataset for image classification](https://colab.research.google.com/github/joheras/CLoDSA/blob/master/notebooks/CLODSA_Melanoma.ipynb).
 * [Augmenting a dataset for image classification modifying the class](https://colab.research.google.com/github/joheras/CLoDSA/blob/master/notebooks/CLODSA_left_right.ipynb).
 * [Augmenting a dataset for video classification of action recognition](https://colab.research.google.com/github/joheras/CLoDSA/blob/master/notebooks/CLODSA_Video_Classification.ipynb).
