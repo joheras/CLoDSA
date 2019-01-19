@@ -1,6 +1,6 @@
-# Augmenting images for classification, localization, detection and semantic segmentation. 
+# Augmenting images for classification, localization, detection, semantic segmentation, and instance segmentation. 
 
-In this section, we present an approach to augment images for the problems of object classification, localization, detection and semantic segmentation. First of all, it is important to understand how the images are annotated in each of these four problems. In the case of object classification, each image is labeled with a prefixed category; for object localization, a bounding box indicating the position of the object in the image is provided; for object detection, a list of bounding boxes and the category of the objects inside those boxes are given; finally, in semantic segmentation, each pixel of the image is labeled with the class of its enclosing object. An example of each kind of annotation is provided in the following figure. 
+In this section, we present an approach to augment images for the problems of object classification, localization, detection, semantic segmentation and instance segmentation. First of all, it is important to understand how the images are annotated in each of these four problems. In the case of object classification, each image is labeled with a prefixed category; for object localization, a bounding box indicating the position of the object in the image is provided; for object detection, a list of bounding boxes and the category of the objects inside those boxes are given; in semantic segmentation, each pixel of the image is labeled with the class of its enclosing object; and, in instance segmentation, each pixel of the image is labeled with the class of its enclosing object, but, on the contrary to semantic segmentation, objects of the same class are distinguished. An example of each kind of annotation is provided in the following figure (from left to right, an example of classification, localization, detection, semantic segmentation, and instance segmentation). 
 
 ![Annotation](images/annotation.png)
 
@@ -27,7 +27,13 @@ The procedure for data augmentation in object detection relies on the one explai
 
 ## Semantic segmentation 
 
-Finally, we explain the procedure for the semantic segmentation problem. As we have previously explained, in this problem, given an image I, each pixel (i,j) of the image --- i.e. the pixel of row i and column j of I --- is labeled with the class of its enclosing object, this annotation is usually provided by means of an image A of the same size as the original one, where (i,j) provides the category of the pixel (i,j) of I, and where each pixel category is given by a different value. In this case, the idea to automatically generate a new annotated image consists in applying the same transformation to the original and the annotation image, the result will be the combination of the two transformed images, see the following figure.
+The procedure for the semantic segmentation problem. As we have previously explained, in this problem, given an image I, each pixel (i,j) of the image --- i.e. the pixel of row i and column j of I --- is labeled with the class of its enclosing object, this annotation is usually provided by means of an image A of the same size as the original one, where (i,j) provides the category of the pixel (i,j) of I, and where each pixel category is given by a different value. In this case, the idea to automatically generate a new annotated image consists in applying the same transformation to the original and the annotation image, the result will be the combination of the two transformed images, see the following figure.
 
 ![Semantic Segmentation](images/semantic_segmentation.png)
+
+## Instance segmentation 
+
+Finally, we explain the procedure for the instance segmentation problem. The procedure is similar to the one explained for object detection. A mask is generated for each instance of the image. Subsequently, the transformation technique is applied to both the original image and the generated masks. Afterwards, from the transformed masks, the new instances are obtained. This process is depicted in the following figure.
+
+![Instance Segmentation](images/instance_segmentation.png)
 
