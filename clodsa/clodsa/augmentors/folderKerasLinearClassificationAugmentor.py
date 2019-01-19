@@ -75,7 +75,7 @@ class FolderKerasLinearClassificationAugmentor(IAugmentor):
                 imagPaths = self.imagePaths[i:i+self.batchSize]
                 labels = self.labels[i:i+self.batchSize]
                 images = [cv2.imread(imagePath) for imagePath in imagPaths]
-                imagesLabels = [readAndGenerateImage(image,self.transformers) for image in images]
+                imagesLabels = [readAndGenerateImage(image,label,self.transformers) for image,label in zip(images,labels)]
                 labels = [imageLabel[1] for imageLabel in imagesLabels]
                 images = [aap.preprocess(imageLabel[0]) for imageLabel in imagesLabels]
                 for j in range(self.batchSize):

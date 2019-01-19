@@ -83,6 +83,8 @@ class yoloLinearDetectionAugmentor(IAugmentor):
 
     def applyAugmentation(self):
         self.readImagesAndAnnotations()
+        if not(os._exists(self.outputPath)):
+            os.makedirs(self.outputPath)
         Parallel(n_jobs=-1)(delayed(readAndGenerateImage)(self.outputPath,self.transformers,x) for x in enumerate(self.imagePaths))
 
 
