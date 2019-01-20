@@ -1,4 +1,4 @@
-# Configuration
+# Configuration options
 
 In this section, we present the different options to configure the framework. In order to use this library, it is necessary to fix, in a configuration file, five parameters: the dataset of images, the kind of problem, the input, the ouput, the generation mode, and the techniques to be applied. Since generating a configuration file might be cumbersome for some users, we have created a ![Java program](../java_wizard) to simplify this task. 
 
@@ -64,6 +64,10 @@ In this mode, the input dataset of images is given by an image and its annotatio
 
 In this mode, the input dataset of images is given by an image and its annotation using the [PascalVOC format](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/). The output produced is a batch of images that can be fed to Keras. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
 
+#### YOLO-YOLO-Linear
+
+In this mode, the input dataset of images is given by an image and its annotation using the [YOLO format](https://pjreddie.com/darknet/yolo/). The output produced is the dataset of augmented images together with its annotation using the YOLO format. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
+
 
 ### Semantic Segmentation
 
@@ -83,6 +87,18 @@ In this approach, the images produced in one step of the pipeline are added to t
 #### Folders-keras-linear
 
 In this mode, the input dataset of images is organized by folders, one folder containing the images and other folder containing the annotation images (the names must match). The output produced is a batch of images that can be fed to Keras. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
+
+### Instance Segmentation
+
+#### VideoFolders-VideoFolders-Linear
+
+In this mode, the input dataset of videos is organized by folders, and the label of a video is given by the name of the containing folder. The output produced is the dataset of augmented videos organized with the same structure as the input folder. The generation mode in this case is linear; that is, given a dataset of n videos, and a list of m augmentation techniques, each technique is applied to the n videos.
+
+#### Coco-Coco-Linear
+
+In this mode, the input dataset of images is stored in a folder together with the annotations in the [COCO format](http://cocodataset.org/#home). The output produced is the dataset of augmented images together with the annotation in the COCO format. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
+
+### List of images classification
 
 ### Adding input-output-generation modes
 
