@@ -1,6 +1,6 @@
 # CLoDSA
 
-CLoDSA is an open-source image augmentation library for object classification, localization, detection and semantic segmentation. It supports a wide variety of augmentation techniques and allows the user to easily combine them. 
+CLoDSA is an open-source image augmentation library for object classification, localization, detection, semantic segmentation and instance segmentation. It supports a wide variety of augmentation techniques and allows the user to easily combine them. It can also be applied to lists of images like videos or z-stacks. 
 
 ## Notebooks (colab)
 
@@ -113,3 +113,19 @@ The following table presents the list of augmenters available in the library and
 | Shift channels | Shifts the channels of the image. | "shift": Shifts input image channels in the range given (value between 0 and 1). | No |
 | Shearing | Shears the image.| *a* : value for shearing (positive double). | Yes |
 | Translation | Translates the image. | *x*: x transltation (integer). *y*: y translation (integer). | Yes |
+
+
+## List of input formats
+* Object classification:
+   * Images organized by folders. 
+   * Images stored in hdf5 format. 
+* Object localization and detection:
+   * Pascal VOC format.
+   * YOLO format.
+* Semantic segmentation:
+   * Folders of images.
+* Instance segmentation:
+   * Coco format.
+* List of images:
+   * Folders of videos. 
+   
