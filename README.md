@@ -62,8 +62,8 @@ To install the wizard, you need to follow the instructions provided in the [wiza
 
 * [Method for augmenting images in classification, localization, detection and semantic segmentation](docs/method.md)
 * [Augmentation techniques](docs/augmentation_techniques.md)
-* [Configuration options](docs/configuration.md)
-* [Input-output options](docs/input-output-generation.md)
+* [Input-output configuration options](docs/configuration.md)
+* [Adding Input-output options](docs/input-output-generation.md)
 * [Adding new techniques](docs/adding_techniques.md)
 * [Previsualization](docs/preview.md)
 * [Related projects](docs/related.md)
@@ -114,18 +114,3 @@ The following table presents the list of augmenters available in the library and
 | Shearing | Shears the image.| *a* : value for shearing (positive double). | Yes |
 | Translation | Translates the image. | *x*: x transltation (integer). *y*: y translation (integer). | Yes |
 
-
-## List of input formats
-* Object classification:
-   * Images organized by folders. 
-   * Images stored in hdf5 format. 
-* Object localization and detection:
-   * Pascal VOC format.
-   * YOLO format.
-* Semantic segmentation:
-   * Folders of images.
-* Instance segmentation:
-   * Coco format.
-* List of images:
-   * Folders of videos. 
-   
