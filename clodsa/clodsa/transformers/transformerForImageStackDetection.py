@@ -1,22 +1,26 @@
 from __future__ import absolute_import
 from .transformer import Transformer
-from .detection import detectBoxes
+from sklearn.externals.joblib import Parallel, delayed
 from ..techniques.technique import PositionVariantTechnique
+from .detection import detectBoxes
 
 
 
-class TransformerForImageDetection(Transformer):
+class TransformerForImageStackDetection(Transformer):
 
     def __init__(self,technique,dictLabels=None):
         Transformer.__init__(self,technique,dictLabels)
 
-    def transform(self, image, boxes):
-        newImage = self.technique.apply(image)
+
+    def transform(self, listImages, boxes):
+        imageShape = listImages[0].shape[:2]
 
         if (isinstance(self.technique, PositionVariantTechnique)):
-            newBoxes = detectBoxes(image.shape[:2], boxes, self.technique)
+            newBoxes = detectBoxes(imageShape, boxes, self.technique)
             newBoxes = [(self.transformLabel(box[0]),box[1]) for box in newBoxes]
         else:
             newBoxes= [(self.transformLabel(box[0]),box[1]) for box in boxes]
 
-        return [newImage,newBoxes]
+        newlistImages = Parallel(n_jobs=-1)(
+            delayed(self.technique.apply)(image) for image in listImages if image is not None)
+        return [newlistImages,newBoxes]

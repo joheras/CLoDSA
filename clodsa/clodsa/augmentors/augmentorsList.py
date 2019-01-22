@@ -13,6 +13,8 @@ from .pascalVOCLinearLocalizationAugmentor import PascalVOCLinearLocalizationAug
 from .yoloLinearDetectionAugmentor import yoloLinearDetectionAugmentor
 from .cocoLinearInstanceSegmentationAugmentor import COCOLinearInstanceSegmentationAugmentor
 from .folderVideoLinearClassificationAugmentor import FolderVideoLinearClassificationAugmentor
+from .youtubeVideoLinearDetectionAugmentor import YoutubeVideoLinearDetectionAugmentor
+from .folderStackLinearSemanticSegmentationAugmentor import FolderStackLinearSemanticSegmentationAugmentor
 
 # List of augmentors organized by problem, then annotation mode, then output mode, and
 # finally generation
@@ -86,6 +88,20 @@ Augmentors = {
         "videofolders": {
             "videofolders": {
                 "linear" : FolderVideoLinearClassificationAugmentor,
+                },
+            },
+        },
+   "stackdetection" : {
+        "youtubevideo": {
+            "youtubevideo": {
+                "linear" : YoutubeVideoLinearDetectionAugmentor,
+                },
+            },
+        },
+   "stacksegmentation" : {
+        "tiff": {
+            "tiff": {
+                "linear" : FolderStackLinearSemanticSegmentationAugmentor,
                 },
             },
         },

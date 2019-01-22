@@ -6,7 +6,7 @@ import numpy as np
 class shearingAugmentationTechnique(PositionVariantTechnique):
 
     def __init__(self,parameters):
-        PositionVariantTechnique.__init__(self, parameters, True)
+        PositionVariantTechnique.__init__(self, parameters)
         if 'a' in list(parameters.keys()):
             self.a = float(parameters["a"])
         else:

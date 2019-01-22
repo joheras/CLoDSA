@@ -11,7 +11,7 @@ class TransformerForImageStackClassification(Transformer):
 
     def transform(self, listImages,label):
         newlistImages = Parallel(n_jobs=-1)(
-            delayed(self.technique.apply)(image) for image in listImages)
+            delayed(self.technique.apply)(image) for image in listImages if image is not None)
         return [newlistImages,self.transformLabel(label)]
 
 

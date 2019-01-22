@@ -5,6 +5,8 @@ from .transformerForImageInstanceSegmentation import TransformerForImageInstance
 from .transformerForImageLocalization import TransformerForImageLocalization
 from .transformerForImageSegmentation import TransformerForImageSegmentation
 from .transformerForImageStackClassification import TransformerForImageStackClassification
+from .transformerForImageStackDetection import TransformerForImageStackDetection
+from .transformerForImageStackSegmentation import TransformerForImageStackSegmentation
 
 
 Transformers = {
@@ -14,5 +16,6 @@ Transformers = {
     "semantic_segmentation" : TransformerForImageSegmentation,
     "instance_segmentation" : TransformerForImageInstanceSegmentation,
     "stackclassification" : TransformerForImageStackClassification,
-    
+    "stackdetection": TransformerForImageStackDetection,
+    "stacksegmentation" : TransformerForImageStackSegmentation,
 }

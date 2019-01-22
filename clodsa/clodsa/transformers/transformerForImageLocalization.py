@@ -14,7 +14,7 @@ class TransformerForImageLocalization(Transformer):
     def transform(self, image,box):
         newImage = self.technique.apply(image)
         if (isinstance(self.technique, PositionVariantTechnique)):
-            newBox = detectBox(image, box, self.technique)
+            newBox = detectBox(image.shape[:2], box, self.technique)
             newBox = (self.transformLabel(newBox[0]), newBox[1])
         else:
             newBox = (self.transformLabel(box[0]), box[1])

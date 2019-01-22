@@ -7,7 +7,7 @@ class changeToLABAugmentationTechnique(PositionInvariantTechnique):
 
 
     def __init__(self,parameters):
-        PositionInvariantTechnique.__init__(self, parameters, False)
+        PositionInvariantTechnique.__init__(self, parameters)
 
 
     def apply(self, image):

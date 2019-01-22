@@ -4,8 +4,8 @@ import imutils
 
 # A box is a tuple (category,(x,y,w,h)) where category is the category of the
 # object, x and y represent the top-left corner, w is the width and h is the height.
-def detectBox(image,box,technique):
-    mask = np.zeros(image.shape[:2], dtype="uint8")
+def detectBox(imageShape,box,technique):
+    mask = np.zeros(imageShape, dtype="uint8")
     (category,(x,y,w,h)) = box
     cv2.rectangle(mask, (x, y), (x+w, y+h), 255, -1)
     newmask = technique.apply(*[mask])
@@ -18,8 +18,8 @@ def detectBox(image,box,technique):
 
 
 # Boxes is a list of boxes with the following format: (category,(x,y,w,h))
-def detectBoxes(image,boxes,technique):
-    return [detectBox(image,box,technique) for box in boxes if detectBox(image,box,technique) is not None]
+def detectBoxes(imageShape,boxes,technique):
+    return [detectBox(imageShape,box,technique) for box in boxes if detectBox(imageShape,box,technique) is not None]
 
 
 
