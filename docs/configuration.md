@@ -9,7 +9,7 @@ The dataset of images is given by the path where the images are located.
 
 ## The kind of problem
 
-The kind of problem is either classification, localization, detection, or segmentation. 
+The kind of problem is either classification, localization, detection, segmentation, instance_segmentation, stackclassification, stackdetection, or stacksegmentation. 
 
 
 ## Input-Output-Generation
@@ -90,13 +90,27 @@ In this mode, the input dataset of images is organized by folders, one folder co
 
 ### Instance Segmentation
 
+#### Coco-Coco-Linear
+
+In this mode, the input dataset of images is stored in a folder together with the annotations in the [COCO format](http://cocodataset.org/#home). The output produced is the dataset of augmented images together with the annotation in the COCO format. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
+
+### Stack classification
+
 #### VideoFolders-VideoFolders-Linear
 
 In this mode, the input dataset of videos is organized by folders, and the label of a video is given by the name of the containing folder. The output produced is the dataset of augmented videos organized with the same structure as the input folder. The generation mode in this case is linear; that is, given a dataset of n videos, and a list of m augmentation techniques, each technique is applied to the n videos.
 
-#### Coco-Coco-Linear
+### Stack detection
 
-In this mode, the input dataset of images is stored in a folder together with the annotations in the [COCO format](http://cocodataset.org/#home). The output produced is the dataset of augmented images together with the annotation in the COCO format. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
+#### Youtubevideo-Youtubevideo-Linear
+
+In this mode, the input dataset of videos is organized by folders and the annotation is given following the [Youtube bb format](https://research.google.com/youtube-bb/). The output produced is the dataset of augmented videos organized with the same structure as the input folder and using also the Youtube bb format. The generation mode in this case is linear; that is, given a dataset of n videos, and a list of m augmentation techniques, each technique is applied to the n videos.
+
+### Stack segmentation
+
+#### tiff-tiff-Linear
+
+In this mode, the input dataset of stacks of images is organized by in two folders one of the stacks of images in tif format and another one with the masks of the stacks also in tif format. The output produced is the dataset of augmented stacks of images organized with the same structure as the input folder. The generation mode in this case is linear; that is, given a dataset of n videos, and a list of m augmentation techniques, each technique is applied to the n videos.
 
 ### List of images classification
 
