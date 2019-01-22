@@ -45,6 +45,7 @@ The following packages must be installed:
   * progressbar2
   * OpenCV (i.e. `cv2` must be available in python). 
   * Tensorflow.
+  * imageio
 
 Once the packages are available, `clodsa` can be installed using the following command
 
