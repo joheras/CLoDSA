@@ -17,6 +17,12 @@ import ij.gui.RotatedRectRoi;
 import ij.io.SaveDialog;
 import ij.plugin.frame.RoiManager;
 import java.awt.Rectangle;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.imagej.ImageJ;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -38,42 +44,34 @@ public class AnnotationJ_ implements Command {
 
     @Override
     public void run() {
-        int width = imp.getWidth();
-        int height = imp.getHeight();
-        String name = imp.getTitle();
-
-        JSONObject json = new JSONObject();
-        json.put("name", name);
-        json.put("width", width);
-        json.put("height", height);
-
-        JSONArray arrayAnnotations = new JSONArray();
-
-
-        RoiManager rm = RoiManager.getInstance();
-        if(rm == null){
-            rm = new RoiManager();
-            return;
-        }
-        
-
-        Roi[] rois = rm.getRoisAsArray();
-        
-
-        for (int i = 0; i < rois.length; i++) {
-            JSONObject item = generateAnnotation(rois[i]);
-            arrayAnnotations.add(item);
-        }
-
-        json.put("annotations", arrayAnnotations);
-        
-        SaveDialog sd = new SaveDialog("Select path", "annotations",".txt");
-
-        System.out.println(sd.getFileName());
-        System.out.println(sd.getDirectory());
-
-        System.out.println(json.toString());
-
+        PrintWriter writer = null;
+        try {
+            int width = imp.getWidth();
+            int height = imp.getHeight();
+            String name = imp.getTitle();
+            JSONObject json = new JSONObject();
+            json.put("name", name);
+            json.put("width", width);
+            json.put("height", height);
+            JSONArray arrayAnnotations = new JSONArray();
+            RoiManager rm = RoiManager.getInstance();
+            if(rm == null){
+                rm = new RoiManager();
+                return;
+            }   Roi[] rois = rm.getRoisAsArray();
+            for (int i = 0; i < rois.length; i++) {
+                JSONObject item = generateAnnotation(rois[i]);
+                arrayAnnotations.add(item);
+            }   json.put("annotations", arrayAnnotations);
+            SaveDialog sd = new SaveDialog("Select path", "annotations",".txt");
+            writer = new PrintWriter(sd.getDirectory()+sd.getFileName(), "UTF-8");
+            writer.println(json.toString());
+            writer.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AnnotationJ_.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(AnnotationJ_.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
 
     private JSONObject generateAnnotation(Roi r) {
