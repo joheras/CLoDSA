@@ -77,6 +77,7 @@ public class AnnotationJ_ implements Command {
     private JSONObject generateAnnotation(Roi r) {
 
         JSONObject json = new JSONObject();
+        JSONObject jsonFinal = new JSONObject();
         String label = r.getName();
         json.put("label", label);
 
@@ -88,7 +89,8 @@ public class AnnotationJ_ implements Command {
             json.put("x2",params[2]);
             json.put("y2",params[3]);
             json.put("width",params[4]);
-            return json;
+            jsonFinal.put("rotatedRect",json);
+            return jsonFinal;
         }
 
         if (r instanceof EllipseRoi) {
@@ -99,7 +101,8 @@ public class AnnotationJ_ implements Command {
             json.put("x2",params[2]);
             json.put("y2",params[3]);
             json.put("aspectRatio",params[4]);
-            return json;
+            jsonFinal.put("ellipse",json);
+            return jsonFinal;
             
 
         }
@@ -111,7 +114,8 @@ public class AnnotationJ_ implements Command {
             json.put("y", r1.y);
             json.put("width", r1.width);
             json.put("height", r1.height);
-            return json;
+            jsonFinal.put("oval",json);
+            return jsonFinal;
 
         }
 
@@ -127,7 +131,8 @@ public class AnnotationJ_ implements Command {
             }
             json.put("xpoints", arrayX);
             json.put("ypoints", arrayY);
-            return json;
+            jsonFinal.put("freeHand",json);
+            return jsonFinal;
 
         }
 
@@ -144,7 +149,8 @@ public class AnnotationJ_ implements Command {
             }
             json.put("xpoints", arrayX);
             json.put("ypoints", arrayY);
-            return json;
+            jsonFinal.put("polygon",json);
+            return jsonFinal;
 
         }
         // Otherwise, we have a rectangle
@@ -153,8 +159,8 @@ public class AnnotationJ_ implements Command {
         json.put("y", r1.y);
         json.put("width", r1.width);
         json.put("height", r1.height);
-
-        return json;
+        jsonFinal.put("rectangle",json);
+            return jsonFinal;
 
     }
 
