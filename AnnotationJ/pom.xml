@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.scijava</groupId>
+        <artifactId>pom-scijava</artifactId>
+        <version>23.1.1</version>
+        <relativePath />
+    </parent>
+
+    <groupId>io.github.joheras</groupId>
+    <artifactId>AnnotationJ</artifactId>
+    <version>1.0.0</version>
+
+    <name>io.github.joheras:AnnotationJ</name>
+    <description>A plugin to export ImageJ annotations created with the ROI manager
+        to a JSON file.</description>
+    <url>https://github.com/joheras/AnnotationJ</url>
+    <inceptionYear>2017</inceptionYear>
+    <organization>
+        <name>University of La Rioja</name>
+        <url>http://www.unirioja.es/</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>Simplified BSD License</name>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    <developers>
+        <developer>
+            <id>joheras</id>
+            <name>Jonathan Heras</name>
+            <url>http://www.unirioja.es/cu/joheras</url>
+            <roles>
+                <role>lead</role>
+                <role>developer</role>
+                <role>debugger</role>
+                <role>reviewer</role>
+                <role>support</role>
+                <role>maintainer</role>
+            </roles>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
+            <name>Cesar Dominguez</name>
+        </contributor>
+        <contributor>
+            <name>Vico Pascual</name>
+        </contributor>
+        <contributor>
+            <name>Eloy Mata</name>
+        </contributor>
+        <contributor>
+            <name>Angela Casado-Garcia</name>
+        </contributor>
+        <contributor>
+            <name>Adrian Ines</name>
+        </contributor>
+        <contributor>
+            <name>Manuel Garcia</name>
+        </contributor>
+    </contributors>
+
+    <mailingLists>
+        <mailingList>
+            <name>ImageJ Forum</name>
+            <archive>http://forum.imagej.net/</archive>
+        </mailingList>
+    </mailingLists>
+
+    <scm>
+        <connection>scm:git:git@github.com:joheras/AnnotationJ.git</connection>
+        <developerConnection>scm:git:git@github.com:joheras/AnnotationJ.git</developerConnection>
+        <url>git@github.com:joheras/AnnotationJ.git</url>
+    </scm>
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/joheras/AnnotationJ/issues</url>
+    </issueManagement>
+    <ciManagement>
+        <system>None</system>
+    </ciManagement>
+
+    <properties>
+        <package-name>io.github.joheras.annotationj</package-name>
+        <main-class>io.github.joheras.annotationj</main-class>
+        <license.licenseName>bsd_2</license.licenseName>
+        <license.copyrightOwners>University of La Rioja</license.copyrightOwners>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <scijava.jvm.version>1.8</scijava.jvm.version>
+    </properties>
+
+    <dependencies>   
+        <!-- ImageJ dependencies -->
+        <dependency>
+            <groupId>net.imagej</groupId>
+            <artifactId>imagej-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.imagej</groupId>
+            <artifactId>imagej-legacy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.imagej</groupId>
+            <artifactId>ij</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.imagej</groupId>
+            <artifactId>imagej</artifactId>
+        </dependency>
+        <!-- SciJava dependencies -->
+        <dependency>
+            <groupId>org.scijava</groupId>
+            <artifactId>scijava-common</artifactId>
+            <type>jar</type>
+        </dependency>
+        <!-- JavaCV dependencies -->
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv-platform</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1</version>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>imagej.public</id>
+            <url>http://maven.imagej.net/content/groups/public</url>
+        </repository>
+    </repositories>
+</project>
