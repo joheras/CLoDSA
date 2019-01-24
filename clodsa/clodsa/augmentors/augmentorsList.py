@@ -15,6 +15,7 @@ from .cocoLinearInstanceSegmentationAugmentor import COCOLinearInstanceSegmentat
 from .folderVideoLinearClassificationAugmentor import FolderVideoLinearClassificationAugmentor
 from .youtubeVideoLinearDetectionAugmentor import YoutubeVideoLinearDetectionAugmentor
 from .folderStackLinearSemanticSegmentationAugmentor import FolderStackLinearSemanticSegmentationAugmentor
+from .jsonLinearInstanceSegmentationAugmentor import JSONLinearInstanceSegmentationAugmentor
 
 # List of augmentors organized by problem, then annotation mode, then output mode, and
 # finally generation
@@ -82,6 +83,12 @@ Augmentors = {
                 "linear": COCOLinearInstanceSegmentationAugmentor,
             },
         },
+        "json": {
+            "json": {
+                "linear": JSONLinearInstanceSegmentationAugmentor,
+            },
+        },
+
     },
 
    "stackclassification" : {
