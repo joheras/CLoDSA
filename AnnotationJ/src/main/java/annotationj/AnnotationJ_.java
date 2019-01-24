@@ -16,6 +16,7 @@ import ij.gui.Roi;
 import ij.gui.RotatedRectRoi;
 import ij.io.SaveDialog;
 import ij.plugin.frame.RoiManager;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,8 +40,6 @@ public class AnnotationJ_ implements Command {
 
     @Parameter
     private ImagePlus imp;
-    
-
 
     @Override
     public void run() {
@@ -55,23 +54,25 @@ public class AnnotationJ_ implements Command {
             json.put("height", height);
             JSONArray arrayAnnotations = new JSONArray();
             RoiManager rm = RoiManager.getInstance();
-            if(rm == null){
+            if (rm == null) {
                 rm = new RoiManager();
                 return;
-            }   Roi[] rois = rm.getRoisAsArray();
+            }
+            Roi[] rois = rm.getRoisAsArray();
             for (int i = 0; i < rois.length; i++) {
                 JSONObject item = generateAnnotation(rois[i]);
                 arrayAnnotations.add(item);
-            }   json.put("annotations", arrayAnnotations);
-            SaveDialog sd = new SaveDialog("Select path", "annotations",".txt");
-            writer = new PrintWriter(sd.getDirectory()+sd.getFileName(), "UTF-8");
+            }
+            json.put("annotations", arrayAnnotations);
+            SaveDialog sd = new SaveDialog("Select path", "annotations", ".txt");
+            writer = new PrintWriter(sd.getDirectory() + sd.getFileName(), "UTF-8");
             writer.println(json.toString());
             writer.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AnnotationJ_.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(AnnotationJ_.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     private JSONObject generateAnnotation(Roi r) {
@@ -81,61 +82,74 @@ public class AnnotationJ_ implements Command {
         String label = r.getName();
         json.put("label", label);
 
-        if (r instanceof RotatedRectRoi) {
-             RotatedRectRoi er = (RotatedRectRoi) r;
-            double[] params = er.getParams();
-            json.put("x1",params[0]);
-            json.put("y1",params[1]);
-            json.put("x2",params[2]);
-            json.put("y2",params[3]);
-            json.put("width",params[4]);
-            jsonFinal.put("rotatedRect",json);
-            return jsonFinal;
-        }
-
-        if (r instanceof EllipseRoi) {
-            EllipseRoi er = (EllipseRoi) r;
-            double[] params = er.getParams();
-            json.put("x1",params[0]);
-            json.put("y1",params[1]);
-            json.put("x2",params[2]);
-            json.put("y2",params[3]);
-            json.put("aspectRatio",params[4]);
-            jsonFinal.put("ellipse",json);
-            return jsonFinal;
-            
-
-        }
-
+//        if (r instanceof RotatedRectRoi) {
+//            RotatedRectRoi er = (RotatedRectRoi) r;
+//            double[] params = er.getParams();
+//            json.put("x1", params[0]);
+//            json.put("y1", params[1]);
+//            json.put("x2", params[2]);
+//            json.put("y2", params[3]);
+//            json.put("width", params[4]);
+//            jsonFinal.put("rotatedRect", json);
+//            return jsonFinal;
+//        }
+//
+//        if (r instanceof EllipseRoi) {
+//            EllipseRoi er = (EllipseRoi) r;
+//            double[] params = er.getParams();
+//            json.put("x1", params[0]);
+//            json.put("y1", params[1]);
+//            json.put("x2", params[2]);
+//            json.put("y2", params[3]);
+//            json.put("aspectRatio", params[4]);
+//            jsonFinal.put("ellipse", json);
+//            return jsonFinal;
+//
+//        }
         if (r instanceof OvalRoi) {
             OvalRoi or = (OvalRoi) r;
-            Rectangle r1 = or.getPolygon().getBounds();
-            json.put("x", r1.x);
-            json.put("y", r1.y);
-            json.put("width", r1.width);
-            json.put("height", r1.height);
-            jsonFinal.put("oval",json);
-            return jsonFinal;
+            Polygon pol = or.getPolygon();
+            Rectangle r1 = pol.getBounds();
+            if (r1.width == r1.height) {
 
-        }
-
-        if (r instanceof FreehandRoi) {
-            PolygonRoi pr = (PolygonRoi) r;
-            int[] xpoints = pr.getPolygon().xpoints;
-            int[] ypoints = pr.getPolygon().ypoints;
-            JSONArray arrayX = new JSONArray();
-            JSONArray arrayY = new JSONArray();
-            for (int i = 0; i < xpoints.length; i++) {
-                arrayX.add(xpoints[i]);
-                arrayY.add(ypoints[i]);
+                json.put("x", r1.x);
+                json.put("y", r1.y);
+                json.put("radius", r1.width);
+                jsonFinal.put("circle", json);
+                return jsonFinal;
+            } else {
+                int[] xpoints = pol.xpoints;
+                int[] ypoints = pol.ypoints;
+                JSONArray arrayX = new JSONArray();
+                JSONArray arrayY = new JSONArray();
+                for (int i = 0; i < xpoints.length; i++) {
+                    arrayX.add(xpoints[i]);
+                    arrayY.add(ypoints[i]);
+                }
+                json.put("xpoints", arrayX);
+                json.put("ypoints", arrayY);
+                jsonFinal.put("polygon", json);
+                return jsonFinal;
             }
-            json.put("xpoints", arrayX);
-            json.put("ypoints", arrayY);
-            jsonFinal.put("freeHand",json);
-            return jsonFinal;
 
         }
 
+//        if (r instanceof FreehandRoi) {
+//            PolygonRoi pr = (PolygonRoi) r;
+//            int[] xpoints = pr.getPolygon().xpoints;
+//            int[] ypoints = pr.getPolygon().ypoints;
+//            JSONArray arrayX = new JSONArray();
+//            JSONArray arrayY = new JSONArray();
+//            for (int i = 0; i < xpoints.length; i++) {
+//                arrayX.add(xpoints[i]);
+//                arrayY.add(ypoints[i]);
+//            }
+//            json.put("xpoints", arrayX);
+//            json.put("ypoints", arrayY);
+//            jsonFinal.put("freeHand", json);
+//            return jsonFinal;
+//
+//        }
         if (r instanceof PolygonRoi) {
 
             PolygonRoi pr = (PolygonRoi) r;
@@ -149,7 +163,7 @@ public class AnnotationJ_ implements Command {
             }
             json.put("xpoints", arrayX);
             json.put("ypoints", arrayY);
-            jsonFinal.put("polygon",json);
+            jsonFinal.put("polygon", json);
             return jsonFinal;
 
         }
@@ -159,8 +173,8 @@ public class AnnotationJ_ implements Command {
         json.put("y", r1.y);
         json.put("width", r1.width);
         json.put("height", r1.height);
-        jsonFinal.put("rectangle",json);
-            return jsonFinal;
+        jsonFinal.put("rectangle", json);
+        return jsonFinal;
 
     }
 
