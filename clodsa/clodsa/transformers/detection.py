@@ -11,7 +11,7 @@ def detectBox(imageShape,box,technique):
     newmask = technique.apply(*[mask])
 
     cnts = cv2.findContours(newmask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    cnts = cnts[0] if imutils.is_cv2() else cnts[1]
+    cnts = cnts[0] if imutils.is_cv2() or imutils.is_cv4() else cnts[1]
     if(len(cnts)==0):
         return None
     return (category,cv2.boundingRect(cnts[0]))
