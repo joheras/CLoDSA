@@ -15,8 +15,8 @@ class TransformerForImageDetection(Transformer):
 
         if (isinstance(self.technique, PositionVariantTechnique)):
             newBoxes = detectBoxes(image.shape[:2], boxes, self.technique)
-            newBoxes = [(self.transformLabel(box[0]),box[1]) for box in newBoxes]
+            newBoxes = [(self.transformLabel(box[0]),box[1],box[2]) for box in newBoxes]
         else:
-            newBoxes= [(self.transformLabel(box[0]),box[1]) for box in boxes]
+            newBoxes= [(self.transformLabel(box[0]),box[1],box[2]) for box in boxes]
 
         return [newImage,newBoxes]
