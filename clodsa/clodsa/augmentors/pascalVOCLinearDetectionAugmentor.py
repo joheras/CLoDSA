@@ -32,7 +32,11 @@ def generateXML(filename,outputPath,w,h,d,boxes):
     childSegmented = ET.SubElement(top, 'segmented')
     childSegmented.text = str(0)
     for box in boxes:
-        (category, (x,y,wb,hb)) = box
+        confidence=1.0
+        if(len(box)==2):
+            (category, (x,y,wb,hb)) = box
+        else:
+            (category, (x, y, wb, hb),confidence) = box
         childObject = ET.SubElement(top, 'object')
         childName = ET.SubElement(childObject, 'name')
         childName.text = category
@@ -42,6 +46,8 @@ def generateXML(filename,outputPath,w,h,d,boxes):
         childTruncated.text = '0'
         childDifficult = ET.SubElement(childObject, 'difficult')
         childDifficult.text = '0'
+        childConfidence = ET.SubElement(childObject, 'confidence')
+        childConfidence.text = str(confidence)
         childBndBox = ET.SubElement(childObject, 'bndbox')
         childXmin = ET.SubElement(childBndBox, 'xmin')
         childXmin.text = str(x)
@@ -68,12 +74,17 @@ def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
     boxes = []
     for object in objects:
         category = object.find('name').text
+        confidence = object.find('confidence').text
+        if confidence is None:
+            confidence=1.0
+        else:
+            confidence = float(confidence)
         bndbox = object.find('bndbox')
         x  = int(bndbox.find('xmin').text)
         y = int(bndbox.find('ymin').text)
         h = int(bndbox.find('ymax').text)-y
         w = int(bndbox.find('xmax').text) - x
-        boxes.append((category, (x, y, w, h)))
+        boxes.append((category, (x, y, w, h),confidence))
     for (j, transformer) in enumerate(transformers):
         (newimage, newboxes) = transformer.transform(image, boxes)
 
