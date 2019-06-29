@@ -74,11 +74,11 @@ def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
     boxes = []
     for object in objects:
         category = object.find('name').text
-        confidence = object.find('confidence').text
+        confidence = object.find('confidence')
         if confidence is None:
             confidence=1.0
         else:
-            confidence = float(confidence)
+            confidence = float(confidence.text)
         bndbox = object.find('bndbox')
         x  = int(bndbox.find('xmin').text)
         y = int(bndbox.find('ymin').text)
@@ -87,7 +87,6 @@ def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
         boxes.append((category, (x, y, w, h),confidence))
     for (j, transformer) in enumerate(transformers):
         (newimage, newboxes) = transformer.transform(image, boxes)
-
         if newboxes is not None:
             cv2.imwrite(outputPath + "/" + str(i) + "_" + str(j) + "_" + name,
                         newimage)

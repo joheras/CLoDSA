@@ -6,7 +6,11 @@ import imutils
 # object, x and y represent the top-left corner, w is the width and h is the height.
 def detectBox(imageShape,box,technique):
     mask = np.zeros(imageShape, dtype="uint8")
-    (category,(x,y,w,h),confidence) = box
+    if(len(box)==2):
+        (category,(x,y,w,h)) = box
+        confidence=1.0
+    else:
+        (category,(x,y,w,h),confidence) = box
     cv2.rectangle(mask, (x, y), (x+w, y+h), 255, -1)
     newmask = technique.apply(*[mask])
 
@@ -17,7 +21,7 @@ def detectBox(imageShape,box,technique):
     return (category,cv2.boundingRect(cnts[0]),confidence)
 
 
-# Boxes is a list of boxes with the following format: (category,(x,y,w,h))
+# Boxes is a list of boxes with the following format: (category,(x,y,w,h),confidence)
 def detectBoxes(imageShape,boxes,technique):
     return [detectBox(imageShape,box,technique) for box in boxes if detectBox(imageShape,box,technique) is not None]
 
