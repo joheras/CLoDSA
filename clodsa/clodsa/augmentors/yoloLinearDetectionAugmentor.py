@@ -42,7 +42,10 @@ def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
 
             file = open(outputPath + "/" + str(i) + "_" + str(j) + "_" + name[0:name.rfind(".")]+".txt", "w")
             for box in newboxes:
-                (category, (x, y, wb, hb)) = box
+                if(len(box)==2):
+                    (category, (x, y, wb, hb))=box
+                else:
+                    (category, (x, y, wb, hb),_)=box
                 file.write(category + " " + str(old_div(float(x+old_div(wb,2)),wI)) + " " + str(old_div(float(y+old_div(hb,2)),hI)) + " " + str(old_div(float(wb),wI)) + " " + str(old_div(float(hb),hI))+ "\n")
             file.close()
         else:
