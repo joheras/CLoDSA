@@ -5,18 +5,21 @@ import numpy as np
 
 from .iaugmentor import IAugmentor
 from .utils.readCOCOJSON import readCOCOJSON
+from ..transformers.transformerFactory import transformerGenerator
+from ..techniques.techniqueFactory import createTechnique
 import json
 import cv2
 from sklearn.externals.joblib import Parallel, delayed
 import imutils
 
 
-def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, imageInfo, annotationsInfo):
+def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, imageInfo, annotationsInfo,ignoreClasses):
     name = imageInfo[0]
     imagePath = inputPath + "/" + name
     (w, h) = imageInfo[1]
     image = cv2.imread(imagePath)
     maskLabels = []
+    labels = set()
     for (c, annotation) in annotationsInfo:
         mask = np.zeros((w, h), dtype="uint8")
         annotation = [[annotation[2 * i], annotation[2 * i + 1]] for i in range(0, int(len(annotation) / 2))]
@@ -24,6 +27,12 @@ def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, ima
         pts = pts.reshape((-1, 1, 2))
         cv2.fillPoly(mask, [pts], True, 255)
         maskLabels.append((mask, c))
+        labels.add(c)
+
+    if not(labels.isdisjoint(ignoreClasses)):
+        newtransformer = transformerGenerator("instance_segmentation")
+        none = createTechnique("none",{})
+        transformers = [newtransformer(none)]
 
     allNewImagesResult = []
     for (j, transformer) in enumerate(transformers):
@@ -61,6 +70,8 @@ class COCOLinearInstanceSegmentationAugmentor(IAugmentor):
             self.outputPath = parameters["outputPath"]
         else:
             raise ValueError("You should provide an output path in the parameters")
+        self.ignoreClasses = parameters["ignoreClasses"] if parameters["ignoreClasses"] else set()
+
 
 
     def readImagesAndAnnotations(self):
@@ -72,7 +83,7 @@ class COCOLinearInstanceSegmentationAugmentor(IAugmentor):
 
         newannotations = Parallel(n_jobs=-1)(delayed(readAndGenerateInstanceSegmentation)
                                              (self.outputPath, self.transformers, self.imagesPath, self.dictImages[x],
-                                              self.dictAnnotations[x])
+                                              self.dictAnnotations[x],self.ignoreClasses)
                                              for x in self.dictImages.keys())
 
         data = {}
