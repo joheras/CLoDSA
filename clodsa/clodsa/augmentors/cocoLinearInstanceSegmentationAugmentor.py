@@ -21,7 +21,7 @@ def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, ima
     maskLabels = []
     labels = set()
     for (c, annotation) in annotationsInfo:
-        mask = np.zeros((w, h), dtype="uint8")
+        mask = np.zeros((h, w), dtype="uint8")
         annotation = [[annotation[2 * i], annotation[2 * i + 1]] for i in range(0, int(len(annotation) / 2))]
         pts = np.array([[int(x[0]), int(x[1])] for x in annotation], np.int32)
         pts = pts.reshape((-1, 1, 2))
@@ -42,12 +42,14 @@ def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, ima
         newSegmentations = []
         for (mask, label) in newmasklabels:
             cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            cnts = cnts[0] if imutils.is_cv2() else cnts[1]
-            segmentation = [[x[0][0], x[0][1]] for x in cnts[0]]
-            # Closing the polygon
-            segmentation.append(segmentation[0])
+            
+            cnts = cnts[0] if imutils.is_cv2() or imutils.is_cv4() else cnts[1]
+            if len(cnts)>0:
+                segmentation = [[x[0][0], x[0][1]] for x in cnts[0]]
+                # Closing the polygon
+                segmentation.append(segmentation[0])
 
-            newSegmentations.append((label, cv2.boundingRect(cnts[0]), segmentation, cv2.contourArea(cnts[0])))
+                newSegmentations.append((label, cv2.boundingRect(cnts[0]), segmentation, cv2.contourArea(cnts[0])))
 
         allNewImagesResult.append((str(j) + "_" + name, (w, h), newSegmentations))
 
@@ -70,7 +72,8 @@ class COCOLinearInstanceSegmentationAugmentor(IAugmentor):
             self.outputPath = parameters["outputPath"]
         else:
             raise ValueError("You should provide an output path in the parameters")
-        self.ignoreClasses = parameters["ignoreClasses"] if parameters["ignoreClasses"] else set()
+        
+        self.ignoreClasses = parameters.get("ignoreClasses",set())
 
 
 
