@@ -37,7 +37,7 @@ def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, ima
     allNewImagesResult = []
     for (j, transformer) in enumerate(transformers):
         (newimage, newmasklabels) = transformer.transform(image, maskLabels)
-        (hI,wI) =image.shape[:2]
+        (hI,wI) =newimage.shape[:2]
         cv2.imwrite(outputPath + str(j) + "_" + name, newimage)
         newSegmentations = []
         for (mask, label) in newmasklabels:
