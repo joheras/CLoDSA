@@ -80,10 +80,10 @@ def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
         else:
             confidence = float(confidence.text)
         bndbox = object.find('bndbox')
-        x  = int(bndbox.find('xmin').text)
-        y = int(bndbox.find('ymin').text)
-        h = int(bndbox.find('ymax').text)-y
-        w = int(bndbox.find('xmax').text) - x
+        x = int(float(bndbox.find('xmin').text))
+        y = int(float(bndbox.find('ymin').text))
+        h = int(float(bndbox.find('ymax').text))-y
+        w = int(float(bndbox.find('xmax').text))-x
         boxes.append((category, (x, y, w, h),confidence))
     for (j, transformer) in enumerate(transformers):
         (newimage, newboxes) = transformer.transform(image, boxes)
