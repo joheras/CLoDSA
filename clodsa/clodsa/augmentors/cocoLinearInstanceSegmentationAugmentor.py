@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from builtins import str
 from builtins import object
 import numpy as np
+import os
 
 from .iaugmentor import IAugmentor
 from .utils.readCOCOJSON import readCOCOJSON
@@ -130,6 +131,7 @@ class COCOLinearInstanceSegmentationAugmentor(IAugmentor):
                 annotationId += 1
             imageId += 1
 
+        os.makedirs(self.outputPath,exist_ok=True)
         with open(self.outputPath + "annotation.json", 'w') as outfile:
             json.dump(data, outfile)
 
