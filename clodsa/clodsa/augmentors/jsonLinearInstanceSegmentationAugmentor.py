@@ -7,7 +7,7 @@ from .iaugmentor import IAugmentor
 from .utils.readCOCOJSON import readCOCOJSON
 import json
 import cv2
-from sklearn.externals.joblib import Parallel, delayed
+from joblib import Parallel, delayed
 import imutils
 from imutils import paths
 import os

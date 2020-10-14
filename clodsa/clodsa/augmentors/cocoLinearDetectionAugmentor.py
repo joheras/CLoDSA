@@ -9,7 +9,7 @@ from ..transformers.transformerFactory import transformerGenerator
 from ..techniques.techniqueFactory import createTechnique
 import json
 import cv2
-from sklearn.externals.joblib import Parallel, delayed
+from joblib import Parallel, delayed
 import imutils
 
 

@@ -6,7 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 from imutils import paths
 import os
 import cv2
-from sklearn.externals.joblib import Parallel, delayed
+from joblib import Parallel, delayed
 from .utils.aspectawarepreprocessor import AspectAwarePreprocessor
 from .utils.hdf5datasetwriter import HDF5DatasetWriterClassification
 import progressbar

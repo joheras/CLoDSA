@@ -5,7 +5,7 @@ from .iaugmentor import IAugmentor
 from imutils import paths
 import os
 import cv2
-from sklearn.externals.joblib import Parallel, delayed
+from joblib import Parallel, delayed
 
 # We need to define this function outside to work in parallel.
 def readAndGenerateVideo(outputPath, transformers, i_and_videoPath):

@@ -6,7 +6,7 @@ from .iaugmentor import IAugmentor
 from imutils import paths
 import os
 import cv2
-from sklearn.externals.joblib import Parallel, delayed
+from joblib import Parallel, delayed
 
 
 def readAndGenerateImageSegmentation(outputPath, transformers, labelextension, i_and_imagePath):

@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 from .transformer import Transformer
-from sklearn.externals.joblib import Parallel, delayed
+from joblib import Parallel, delayed
 from ..techniques.technique import PositionVariantTechnique
 
 

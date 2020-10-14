@@ -10,7 +10,7 @@ from ..transformers.transformerFactory import transformerGenerator
 from ..techniques.techniqueFactory import createTechnique
 import json
 import cv2
-from sklearn.externals.joblib import Parallel, delayed
+from joblib import Parallel, delayed
 import imutils
 
 
@@ -37,7 +37,10 @@ def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, ima
 
     allNewImagesResult = []
     for (j, transformer) in enumerate(transformers):
-        (newimage, newmasklabels) = transformer.transform(image, maskLabels)
+        try:
+            (newimage, newmasklabels) = transformer.transform(image, maskLabels)
+        except:
+            print("Error in image: " + imagePath)
         (hI,wI) =newimage.shape[:2]
         cv2.imwrite(outputPath + str(j) + "_" + name, newimage)
         newSegmentations = []
