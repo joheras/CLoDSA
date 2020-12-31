@@ -9,18 +9,20 @@ from ..transformers.transformerFactory import transformerGenerator
 from ..techniques.techniqueFactory import createTechnique
 import json
 import cv2
+import os
 from joblib import Parallel, delayed
 import imutils
+import psutil
 
 
 def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, imageInfo, boxes,ignoreClasses):
     name = imageInfo[0]
-    imagePath = inputPath + "/" + name
+    imagePath = inputPath + os.sep + name
     image = cv2.imread(imagePath)
     allNewImagesResult = []
     for (j, transformer) in enumerate(transformers):
         (newimage, newboxes) = transformer.transform(image, boxes,True)
-        (hI,wI) =newimage.shape[:2]
+        (hI,wI) = newimage.shape[:2]
         cv2.imwrite(outputPath + str(j) + "_" + name, newimage)
         newSegmentations = []
         for (label,box,_) in newboxes:
@@ -41,7 +43,7 @@ class COCOLinearDetectionAugmentor(IAugmentor):
     def __init__(self, inputPath, parameters):
         IAugmentor.__init__(self)
         self.imagesPath = inputPath
-        self.annotationFile = inputPath + "/annotations.json"
+        self.annotationFile = os.path.join(inputPath, "annotations.json")
         # output path represents the folder where the images will be stored
         if parameters["outputPath"]:
             self.outputPath = parameters["outputPath"]
@@ -58,8 +60,10 @@ class COCOLinearDetectionAugmentor(IAugmentor):
 
     def applyAugmentation(self):
         self.readImagesAndAnnotations()
-
-        newannotations = Parallel(n_jobs=-1)(delayed(readAndGenerateInstanceSegmentation)
+        cores_count = psutil.cpu_count(logical=False)
+        if cores_count is None:
+            cores_count = 1
+        newannotations = Parallel(n_jobs=cores_count)(delayed(readAndGenerateInstanceSegmentation)
                                              (self.outputPath, self.transformers, self.imagesPath, self.dictImages[x],
                                               self.dictAnnotations[x],self.ignoreClasses)
                                              for x in self.dictImages.keys())
