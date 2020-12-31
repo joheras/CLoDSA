@@ -8,7 +8,7 @@ from imutils import paths
 import os
 import cv2
 from joblib import Parallel, delayed
-
+import psutil
 
 
 def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
@@ -17,7 +17,7 @@ def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
     image = cv2.imread(imagePath)
     (hI, wI) = image.shape[:2]
     name = imagePath.split(os.path.sep)[-1]
-    labelPath = '/'.join(imagePath.split(os.path.sep)[:-1]) + "/"+name[0:name.rfind(".")] + ".txt"
+    labelPath = os.sep.join(imagePath.split(os.path.sep)[:-1]) + os.sep + name[0:name.rfind(".")] + ".txt"
     lines = [line.rstrip('\n') for line in open(labelPath)]
     #if(len(objects)<1):
     #    raise Exception("The xml should contain at least one object")
@@ -26,7 +26,7 @@ def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
         for line in lines:
             components = line.split(" ")
             category = components[0]
-            x  = int(float(components[1])*wI - float(components[3])*wI/2)
+            x = int(float(components[1])*wI - float(components[3])*wI/2)
             y = int(float(components[2])*hI - float(components[4])*hI/2)
             h = int(float(components[4])*hI)
             w = int(float(components[3])*wI)
@@ -36,11 +36,9 @@ def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
         (hI, wI) = newimage.shape[:2]
 
         if newboxes is not None:
-            cv2.imwrite(outputPath + "/" + str(i) + "_" + str(j) + "_" + name,
-                        newimage)
+            cv2.imwrite(outputPath + os.sep + str(i) + "_" + str(j) + "_" + name, newimage)
 
-
-            file = open(outputPath + "/" + str(i) + "_" + str(j) + "_" + name[0:name.rfind(".")]+".txt", "w")
+            file = open(outputPath + os.sep + str(i) + "_" + str(j) + "_" + name[0:name.rfind(".")] + ".txt", "w")
             for box in newboxes:
                 if(len(box)==2):
                     (category, (x, y, wb, hb))=box
@@ -49,7 +47,7 @@ def readAndGenerateImage(outputPath, transformers, i_and_imagePath):
                 file.write(category + " " + str(old_div(float(x+old_div(wb,2)),wI)) + " " + str(old_div(float(y+old_div(hb,2)),hI)) + " " + str(old_div(float(wb),wI)) + " " + str(old_div(float(hb),hI))+ "\n")
             file.close()
         else:
-            file = open(outputPath + "/" + str(i) + "_" + str(j) + "_" + name[0:name.rfind(".")] + ".txt", "w")
+            file = open(outputPath + os.sep + str(i) + "_" + str(j) + "_" + name[0:name.rfind(".")] + ".txt", "w")
             file.close()
 
 
@@ -86,9 +84,12 @@ class yoloLinearDetectionAugmentor(IAugmentor):
 
     def applyAugmentation(self):
         self.readImagesAndAnnotations()
-        if not(os._exists(self.outputPath)):
+        if not os.path.exists(self.outputPath):
             os.makedirs(self.outputPath)
-        Parallel(n_jobs=-1)(delayed(readAndGenerateImage)(self.outputPath,self.transformers,x) for x in enumerate(self.imagePaths))
+        cores_count = psutil.cpu_count(logical=False)
+        if cores_count is None:
+            cores_count = 1
+        Parallel(n_jobs=cores_count)(delayed(readAndGenerateImage)(self.outputPath,self.transformers,x) for x in enumerate(self.imagePaths))
 
 
 #
