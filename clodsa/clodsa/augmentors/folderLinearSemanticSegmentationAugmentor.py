@@ -8,20 +8,20 @@ from imutils import paths
 import os
 import cv2
 from joblib import Parallel, delayed
+import psutil
 
 
 def readAndGenerateImageSegmentation(outputPath, transformers, labelextension, i_and_imagePath):
     (i, imagePath) = i_and_imagePath
     image = cv2.imread(imagePath)
     name = imagePath.split(os.path.sep)[-1]
-    labelPath = '/'.join(imagePath.split(os.path.sep)[:-2]) + "/labels/" + name[
-                                                                           0:name.rfind(".")] + labelextension
+    labelPath = os.path.join(os.sep.join(imagePath.split(os.path.sep)[:-2]), "labels") + os.sep +  name[0:name.rfind(".")] + labelextension
+
     label = cv2.imread(labelPath)
 
-
     for (j, transformer) in enumerate(transformers):
-        (newimage,newlabel) = transformer.transform(image,label)
-
+        (newimage, newlabel) = transformer.transform(image,label)
+        # print(newimage.shape, newlabel.shape)
         cv2.imwrite(outputPath +  "images/" + str(i) + "_" + str(j) + "_" + name,
                     newimage)
         cv2.imwrite(outputPath + "labels/" + str(i) + "_" + str(j) + "_" + name[0:name.rfind(".")]+labelextension,
@@ -47,8 +47,8 @@ class FolderLinearSemanticSegmentationAugmentor(IAugmentor):
     def __init__(self,inputPath,parameters):
         IAugmentor.__init__(self)
         self.inputPath = inputPath
-        self.imagesPath = inputPath+"/images/"
-        self.labelsPath = inputPath + "/labels/"
+        self.imagesPath = os.path.join(inputPath, "images") + os.sep
+        self.labelsPath = os.path.join(inputPath, "labels") + os.sep
         # output path represents the folder where the images will be stored
         if parameters["outputPath"]:
             self.outputPath = parameters["outputPath"]
@@ -58,15 +58,15 @@ class FolderLinearSemanticSegmentationAugmentor(IAugmentor):
             self.labelsExtension = parameters["labelsExtension"]
         else:
             self.labelsExtension = ".tiff"
-        if not os.path.exists(self.outputPath + "images/"):
-            os.makedirs(self.outputPath + "images/")
-        if not os.path.exists(self.outputPath + "labels/"):
-            os.makedirs(self.outputPath + "labels/")
+        if not os.path.exists(os.path.join(self.outputPath,"images")):
+            os.makedirs(os.path.join(self.outputPath,"images"))
+        if not os.path.exists(os.path.join(self.outputPath,"labels")):
+            os.makedirs(os.path.join(self.outputPath,"labels"))
 
     def readImagesAndAnnotations(self):
-
         self.imagePaths = list(paths.list_files(self.imagesPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
         self.labelPaths = list(paths.list_files(self.labelsPath,validExts=(".jpg", ".jpeg", ".png", ".bmp",".tiff",".tif")))
+
         if (len(self.imagePaths)!=len(self.labelPaths)):
             raise Exception("The number of files is different in the folder of images and in the folder of labels")
 
@@ -74,9 +74,19 @@ class FolderLinearSemanticSegmentationAugmentor(IAugmentor):
 
     def applyAugmentation(self):
         self.readImagesAndAnnotations()
-        Parallel(n_jobs=-1)(delayed(readAndGenerateImageSegmentation)
-                            (self.outputPath,self.transformers,self.labelsExtension,x)
-                            for x in enumerate(self.imagePaths))
+        cores_count = psutil.cpu_count(logical=False)
+        if cores_count is None:
+            cores_count = 1
+        Parallel(n_jobs=cores_count)(delayed(readAndGenerateImageSegmentation)
+                                    (self.outputPath,self.transformers,self.labelsExtension,x)
+                                    for x in enumerate(self.imagePaths))
+        # This also works same
+        # Without any Parallel api
+        # if len(self.imagePaths) == len(self.labelPaths):
+        #     for i in enumerate(self.imagePaths):
+        #         readAndGenerateImageSegmentation(self.outputPath,self.transformers,self.labelsExtension, i)
+        # else:
+        #     print("[Debug]:  images and labels are not having same length")
 
 
 
@@ -105,4 +115,3 @@ class FolderLinearSemanticSegmentationAugmentor(IAugmentor):
 # augmentor.applyAugmentation()
 # end = time.time()
 # print(end - start)
-
