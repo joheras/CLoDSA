@@ -4,7 +4,7 @@ from builtins import object
 import numpy as np
 
 from .iaugmentor import IAugmentor
-from .utils.readCOCOJSON import readCOCOJSONBoxes
+from .utils.readCOCOJSON import readCOCOJSON
 from ..transformers.transformerFactory import transformerGenerator
 from ..techniques.techniqueFactory import createTechnique
 import json
