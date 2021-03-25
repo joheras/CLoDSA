@@ -13,6 +13,7 @@ from .pascalVOCLinearLocalizationAugmentor import PascalVOCLinearLocalizationAug
 from .yoloLinearDetectionAugmentor import yoloLinearDetectionAugmentor
 from .cocoLinearInstanceSegmentationAugmentor import COCOLinearInstanceSegmentationAugmentor
 from .cocoLinearDetectionAugmentor import COCOLinearDetectionAugmentor
+from .cocoSequentialInstanceSegmentationAugmentor import COCOSequentialInstanceSegmentationAugmentor
 from .folderVideoLinearClassificationAugmentor import FolderVideoLinearClassificationAugmentor
 from .youtubeVideoLinearDetectionAugmentor import YoutubeVideoLinearDetectionAugmentor
 from .folderStackLinearSemanticSegmentationAugmentor import FolderStackLinearSemanticSegmentationAugmentor
@@ -88,6 +89,7 @@ Augmentors = {
         "coco": {
             "coco": {
                 "linear": COCOLinearInstanceSegmentationAugmentor,
+                "sequential": COCOSequentialInstanceSegmentationAugmentor
             },
         },
         "json": {

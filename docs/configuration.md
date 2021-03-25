@@ -94,6 +94,11 @@ In this mode, the input dataset of images is organized by folders, one folder co
 
 In this mode, the input dataset of images is stored in a folder together with the annotations in the [COCO format](http://cocodataset.org/#home). The output produced is the dataset of augmented images together with the annotation in the COCO format. The generation mode in this case is linear; that is, given a dataset of n images, and a list of m augmentation techniques, each technique is applied to the n images.
 
+#### Coco-Coco-Sequential
+
+In this mode, the input dataset of images is stored in a folder together with the annotations in the [COCO format](http://cocodataset.org/#home). The output produced is the dataset of augmented images together with the annotation in the COCO format. The generation mode in this case is sequential;
+that is, given a dataset of n images and a list of m augmentation techniques, all of the m augmentation techniques are applied to each of the n images. This will result in an output dataset of n images.
+
 ### Stack classification
 
 #### VideoFolders-VideoFolders-Linear
