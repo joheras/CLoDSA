@@ -2,33 +2,68 @@ from __future__ import absolute_import
 from builtins import str
 from builtins import object
 import numpy as np
+import os
 
 from .iaugmentor import IAugmentor
 from .utils.readCOCOJSON import readCOCOJSON
+
 from ..transformers.transformerFactory import transformerGenerator
 from ..techniques.techniqueFactory import createTechnique
 import json
 import cv2
-import os
 from joblib import Parallel, delayed
 import imutils
-import psutil
 
 
-def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, imageInfo, boxes,ignoreClasses):
+def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, imageInfo, annotationsInfo,ignoreClasses):
     name = imageInfo[0]
-    imagePath = inputPath + os.sep + name
+    imagePath = inputPath + "/" + name
+    (w, h) = imageInfo[1]
     image = cv2.imread(imagePath)
+    maskLabels = []
+    labels = set()
+    for (c, annotation) in annotationsInfo:
+        mask = np.zeros((h, w), dtype="uint8")
+        annotation = [[annotation[2 * i], annotation[2 * i + 1]] for i in range(0, int(len(annotation) / 2))]
+        pts = np.array([[int(x[0]), int(x[1])] for x in annotation], np.int32)
+        pts = pts.reshape((-1, 1, 2))
+        cv2.fillPoly(mask, [pts], True, 255)
+        maskLabels.append((mask, c))
+        labels.add(c)
+
+    if not(labels.isdisjoint(ignoreClasses)):
+        newtransformer = transformerGenerator("instance_segmentation")
+        none = createTechnique("none",{})
+        transformers = [newtransformer(none)]
+
     allNewImagesResult = []
     for (j, transformer) in enumerate(transformers):
-        (newimage, newboxes) = transformer.transform(image, boxes,True)
-        (hI,wI) = newimage.shape[:2]
-        cv2.imwrite(outputPath + str(j) + "_" + name, newimage)
-        newSegmentations = []
-        for (label,box,_) in newboxes:
-            newSegmentations.append((label, box, [], box[2]*box[3]))
+        try:
 
-        allNewImagesResult.append((str(j) + "_" + name, (wI, hI), newSegmentations))
+            (newimage, newmasklabels) = transformer.transform(image, maskLabels)
+            print("maskLabesl: ".format(maskLabels))
+            print("newMaskLabels: ".format(newmasklabels))
+        except:
+            print("Error in image: " + imagePath)
+
+        image = newimage
+        maskLabels = newmasklabels
+
+    (hI,wI) =newimage.shape[:2]
+    cv2.imwrite(outputPath + str(j) + "_" + name, newimage)
+    newSegmentations = []
+    for (mask, label) in newmasklabels:
+        cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
+        cnts = cnts[0] if imutils.is_cv2() or imutils.is_cv4() else cnts[1]
+        if len(cnts)>0:
+            segmentation = [[x[0][0], x[0][1]] for x in cnts[0]]
+            # Closing the polygon
+            segmentation.append(segmentation[0])
+
+            newSegmentations.append((label, cv2.boundingRect(cnts[0]), segmentation, cv2.contourArea(cnts[0])))
+
+    allNewImagesResult.append((str(j) + "_" + name, (wI, hI), newSegmentations))
 
     return allNewImagesResult
 
@@ -38,12 +73,12 @@ def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, ima
 # images and there is a json file with the annotations of the images
 # using the COCO format called annotation.json
 
-class COCOLinearDetectionAugmentor(IAugmentor):
+class COCOSequentialInstanceSegmentationAugmentor(IAugmentor):
 
     def __init__(self, inputPath, parameters):
         IAugmentor.__init__(self)
         self.imagesPath = inputPath
-        self.annotationFile = os.path.join(inputPath, "annotations.json")
+        self.annotationFile = inputPath + "/annotations.json"
         # output path represents the folder where the images will be stored
         if parameters["outputPath"]:
             self.outputPath = parameters["outputPath"]
@@ -56,17 +91,16 @@ class COCOLinearDetectionAugmentor(IAugmentor):
 
     def readImagesAndAnnotations(self):
         (self.info, self.licenses, self.categories, self.dictImages, self.dictAnnotations) \
-            = readCOCOJSONBoxes(self.annotationFile)
+            = readCOCOJSON(self.annotationFile)
 
     def applyAugmentation(self):
         self.readImagesAndAnnotations()
-        cores_count = psutil.cpu_count(logical=False)
-        if cores_count is None:
-            cores_count = 1
-        newannotations = Parallel(n_jobs=cores_count)(delayed(readAndGenerateInstanceSegmentation)
+
+        newannotations = Parallel(n_jobs=-1)(delayed(readAndGenerateInstanceSegmentation)
                                              (self.outputPath, self.transformers, self.imagesPath, self.dictImages[x],
                                               self.dictAnnotations[x],self.ignoreClasses)
                                              for x in self.dictImages.keys())
+
         data = {}
         data['info'] = self.info
         data['licenses'] = self.licenses
@@ -108,6 +142,7 @@ class COCOLinearDetectionAugmentor(IAugmentor):
                 annotationId += 1
             imageId += 1
 
+        os.makedirs(self.outputPath,exist_ok=True)
         with open(self.outputPath + "annotation.json", 'w') as outfile:
             json.dump(data, outfile)
 
