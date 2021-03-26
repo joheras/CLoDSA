@@ -29,6 +29,7 @@ from .changeToHSVAugmentationTechnique import changeToHSVAugmentationTechnique
 from .changeToLABAugmentationTechnique import changeToLABAugmentationTechnique
 from .invertAugmentationTechnique import invertAugmentationTechnique
 from .cropSizeAugmentationTechnique import cropSizeAugmentationTechnique
+from .backgroundReplacementAugmentationTechnique import backgroundReplacementAugmentationTechnique
 
 Techniques = {
     "average_blurring" : averageBlurringAugmentationTechnique,
@@ -60,5 +61,6 @@ Techniques = {
     "sharpen":sharpenAugmentationTechnique,
     "shift_channel":shiftChannelAugmentationTechnique,
     "shearing": shearingAugmentationTechnique,
-    "translation": translationAugmentationTechnique
+    "translation": translationAugmentationTechnique,
+    "background_replacement": backgroundReplacementAugmentationTechnique
 }
