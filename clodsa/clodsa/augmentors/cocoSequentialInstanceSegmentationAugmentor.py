@@ -43,11 +43,10 @@ def readAndGenerateInstanceSegmentation(outputPath, transformers, inputPath, ima
             (newimage, newmasklabels) = transformer.transform(image, maskLabels)
             print("maskLabesl: ".format(maskLabels))
             print("newMaskLabels: ".format(newmasklabels))
+            image = newimage
+            maskLabels = newmasklabels
         except:
             print("Error in image: " + imagePath)
-
-        image = newimage
-        maskLabels = newmasklabels
 
     (hI,wI) =newimage.shape[:2]
     cv2.imwrite(outputPath + str(j) + "_" + name, newimage)
