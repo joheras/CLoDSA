@@ -11,7 +11,7 @@ def detectBox(imageShape,box,technique):
         confidence=1.0
     else:
         (category,(x,y,w,h),confidence) = box
-    cv2.rectangle(mask, (x, y), (x+w, y+h), 255, -1)
+    cv2.rectangle(mask, (int(x), int(y)), (int(x+w), int(y+h)), 255, -1)
     newmask = technique.apply(*[mask])
 
     cnts = cv2.findContours(newmask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
