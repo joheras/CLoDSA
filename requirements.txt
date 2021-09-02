@@ -82,7 +82,7 @@ python-dateutil==2.8.1
 python-utils==2.4.0
 pytz==2020.4
 PyWavelets==1.1.1
-pywin32==300
+pywin32==301
 pywinpty==0.5.7
 PyYAML==5.4
 pyzmq==20.0.0
