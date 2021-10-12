@@ -9,5 +9,5 @@ h5py==2.6.0
 progressbar2==3.39.2
 scikit_learn==0.20.2
 tensorflow>=1.12.1
-opencv-python==3.4.3.18
+opencv-python==3.4.7.28
 joblib
