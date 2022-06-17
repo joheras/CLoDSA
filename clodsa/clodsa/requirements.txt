@@ -1,6 +1,6 @@
 mahotas==1.4.3
 Keras==2.2.2
-numpy==1.11.0
+numpy==1.21.0
 imutils==0.5.1
 commentjson==0.7.1
 scipy==0.18.1
